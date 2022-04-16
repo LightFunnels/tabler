@@ -1,6 +1,6 @@
 import {createRoot} from "react-dom/client"
 import React from "react";
-import {Button, Alert, Link, Input, Label, Form} from "./components"
+import {Button, Alert, Link, Input, Label} from "./components"
 
 createRoot(window.app)
   .render(<App />);
@@ -27,16 +27,6 @@ function App(){
     <Button className='mb-2 mt-2' fullWidth onClick={() => {}} primary children='Test Button' />
     <Label children="Enter your Name"/>
     <Input className="mb-2" value={state} onChange={(e) => setState(e.target.value)} placeholder="enter your name" />
-    <Form 
-      onSubmit={() => {}}
-      children={
-        <React.Fragment>
-           <Label children="Enter your Name"/>
-           <Input className="mb-2" value={state} onChange={(e) => setState(e.target.value)} placeholder="enter your name" />
-           <Button primary children={'Submit'} type={'submit'} />
-        </React.Fragment>
-      } 
-    />
   </div>
   )
 }
