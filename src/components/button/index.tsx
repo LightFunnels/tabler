@@ -2,34 +2,23 @@ import React from "react";
 
 type Props = {
 	loading?: boolean
-	children: React.ReactNode
-
-	primary?: boolean
-	danger?: boolean
-	className?: string
-
-	disabled?: boolean
-	onClick?: () => void
-	fullWidth?: boolean
 	type?: string
+	fullWidth?: boolean
+	htmlType?: string
 }
 
-export function Button(props: Props){
+export function Button({loading, fullWidth, htmlType, type, ...props}: Props & React.ButtonHTMLAttributes<HTMLButtonElement>){
 	return (
-	<button 
-		children={props.children} 
-		className={
-			`	btn
-				${props.fullWidth ? 'w-full' : ''}
-				${props.loading ? 'btn-loading' : ''} 
-				${props.primary ? 'btn-primary' : ''}
-				${props.danger ? 'btn-danger' : ''}
-				${props.className}
-			`
-		} 
-		onClick={props.onClick}
-		disabled={props.disabled}
-		type={props.type}
-	/>
+		<button
+			{...props}
+			className={
+				`	btn
+					${fullWidth ? 'w-full' : ''}
+					${loading ? 'btn-loading' : ''} 
+					${type === 'primary' ? 'btn-primary' : type === 'danger' ? 'btn-danger' : ''}
+				`
+			}
+			type={htmlType}
+		/>
 	)
 }

@@ -9,35 +9,24 @@ import React from 'react';
 
 type Props = {
   className?: string
-
-  default?: boolean
   dismissible?: boolean
   title?: React.ReactNode
   children?: React.ReactNode
   linkChildren?: React.ReactNode
-
-  buttons?: React.ReactNode
-
   icon?: React.ReactNode
   avatar?: React.ReactNode
-
+  background?: string
   onClick?: () => void
 }
 
 export function Alert(props: Props){
   return (
     <React.Fragment>
-      <div className={`alert ${props.className} ${props.dismissible ? 'alert-dismissible' : ''}`}>
-        {props.default && (
+      <div className={`alert ${props.className ?? props.className} ${props.dismissible ? 'alert-dismissible' : ''} ${props.background ?? ''}`}>
+        {!props.dismissible && (
           <React.Fragment>
             {props.title}
             {props.children}
-            {props.buttons && (
-              <div className="btn-list mt-3">
-                <a href="#" className="btn btn-info">Okay</a>
-                <a href="#" className="btn">Cancel</a>
-              </div>
-            )}
           </React.Fragment>
         )}
         {props.dismissible && (
@@ -50,19 +39,9 @@ export function Alert(props: Props){
                 {props.children}
               </div>
               <a 
-                className="btn-close" 
+                className={`btn-close ${props.background ? 'btn-close-white' : ''}`} 
                 onClick={props.onClick} 
-                data-bs-dismiss="alert" 
-                aria-label="close"
               />
-            </div>
-            <div className='mt-3'>
-              {props.buttons && (
-                <div className="btn-list">
-                  <a href="#" className="btn btn-info">Okay</a>
-                  <a href="#" className="btn">Cancel</a>
-                </div>
-              )}
             </div>
           </React.Fragment>
         )}

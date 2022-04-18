@@ -1,17 +1,31 @@
 import React from 'react';
-// import {Link as RouterLink} from 'react-router-dom';
+import {Link as RDLink} from 'react-router-dom';
 
 type Props = {
+  className?: string
   to: string
-  children: React.ReactNode | string
+  native: boolean
+  children: React.ReactNode
 }
 
 export function Link(props: Props){
   return (
-    <a 
-      href={props.to} 
-      className="alert-link"
-      children={props.children}
-    />
+    <React.Fragment>
+      {!props.native && (
+          <RDLink 
+            className={`alert-link ${props.className ?? ''}`} 
+            children={props.children} 
+            to={props.to} 
+          />
+        )
+      }
+      {props.native && (
+        <a 
+          href={props.to} 
+          className={`alert-link ${props.className ?? ''}`}
+          children={props.children}
+        />
+      )}
+    </React.Fragment>
   )
 }
