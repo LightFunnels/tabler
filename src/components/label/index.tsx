@@ -8,7 +8,7 @@ type Props = {
 export function Label(props: Props){
   return (
     <label
-      className={`form-label ${props.className}`}
+      className={`form-label ${props.className ?? ""}`}
       children={props.children} 
     />
   )

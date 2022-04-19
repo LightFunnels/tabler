@@ -8,7 +8,7 @@ type Props = {
 export function Radio({children, className, ...props}: Props & React.InputHTMLAttributes<HTMLInputElement>){
   return (
     <label  
-      className={`form-check ${className}`}
+      className={`form-check ${className ?? ""}`}
       children={
         <React.Fragment>
           <input {...props} className="form-check-input" type="radio" />
