@@ -1,21 +1,20 @@
 import React from 'react';
 
 type Props = {
-  containerClassName?: string
-  label?: string
-  checkboxLabel: string
+  className?: string
+  children?: string
 }
 
-export function Radio({label, checkboxLabel, containerClassName, disabled, ...props}: Props & React.InputHTMLAttributes<HTMLInputElement>){
+export function Radio({children, className, ...props}: Props & React.InputHTMLAttributes<HTMLInputElement>){
   return (
-    <div className={`${containerClassName ?? ''}`}>
-      {label && (<div className="form-label">{label}</div>)}
-      <div>
-        <label className="form-check">
+    <label  
+      className={`form-check ${className}`}
+      children={
+        <React.Fragment>
           <input {...props} className="form-check-input" type="radio" />
-          <span children={checkboxLabel} className="form-check-label" />
-        </label>
-      </div>
-    </div>   
+          {children && <span children={children} className="form-check-label" />}
+        </React.Fragment>
+      }
+    />
   )
 }

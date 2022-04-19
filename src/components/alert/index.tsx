@@ -9,46 +9,40 @@ import React from 'react';
 
 type Props = {
   className?: string
-  dismissible?: boolean
-  title?: React.ReactNode
+  dismiss?: () => void
   children?: React.ReactNode
   linkChildren?: React.ReactNode
   icon?: React.ReactNode
   avatar?: React.ReactNode
   background?: string
-  onClick?: () => void
 }
 
 export function Alert(props: Props){
   return (
     <React.Fragment>
-      <div className={`alert ${props.className ?? props.className} ${props.dismissible ? 'alert-dismissible' : ''} ${props.background ?? ''}`}>
-        {!props.dismissible && (
+      <div className={`alert ${props.dismiss ? 'alert-dismissible' : ''} ${props.background} ${props.className}`}>
+        {!props.dismiss && (
           <React.Fragment>
-            {props.title}
             {props.children}
           </React.Fragment>
         )}
-        {props.dismissible && (
+        {props.dismiss && (
           <React.Fragment>
             <div className='d-flex'>
               {props.icon && <i className={`icon alert-icon ti ti-${props.icon}`} />}
               {props.avatar && <img className='avatar float-start me-3' src={props.avatar} alt='avatar' />}
               <div>
-                {props.title}
                 {props.children}
               </div>
               <a 
                 className={`btn-close ${props.background ? 'btn-close-white' : ''}`} 
-                onClick={props.onClick} 
+                onClick={props.dismiss} 
               />
             </div>
           </React.Fragment>
         )}
         {props.linkChildren}
       </div>  
-     
-  
     </React.Fragment>
   )
 }

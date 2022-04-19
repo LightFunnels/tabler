@@ -7,3 +7,5 @@ export {Select} from "./select";
 export {Switch} from "./switch";
 export {Radio} from "./radio";
 export {Checkbox} from "./checkbox";
+export {Card} from "./card";
+export {TextArea} from "./text-area";

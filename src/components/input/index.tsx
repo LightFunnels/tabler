@@ -1,13 +1,13 @@
 import React from 'react';
 
 type Props = {
-  containerClassName?: string
+  className?: string
   loading?: boolean
 }
 
-export function Input({containerClassName, loading, ...props} : Props & React.InputHTMLAttributes<HTMLInputElement>){
+export function Input({className, loading, ...props} : Props & React.InputHTMLAttributes<HTMLInputElement>){
   return (
-    <div className={`input-icon ${containerClassName ?? ''}`}>
+    <div className={`input-icon ${className}`}>
       {loading && (
         <span className="input-icon-addon">
           <div className="spinner-border spinner-border-sm text-muted" role="status"></div>

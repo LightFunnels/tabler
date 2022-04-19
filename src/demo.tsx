@@ -1,6 +1,6 @@
 import {createRoot} from "react-dom/client"
 import React from "react";
-import {Button, Alert, Link, Input, Label, Select, Switch, Radio, Checkbox} from "./components"
+import {Button, Alert, Link, Input, Label, Select, Switch, Radio, Checkbox, Card, TextArea} from "./components"
 
 createRoot(window.app)
   .render(<App />);
@@ -14,58 +14,68 @@ function App(){
   <div className='p-3'>
     <Alert 
       className="alert-info" 
-      title='Wow! Everything worked!'
-      children="Your account has been saved! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet,"
-      // default
-      dismissible
-      // buttons
-      // avatar="https://avatars.githubusercontent.com/u/60047489?v=4"
-      icon='alert-circle'
+      children={
+        <React.Fragment>
+          <h4 className="alert-title">Wow! Everything worked!</h4>
+          <div className="text-muted">Your account has been saved!</div>
+        </React.Fragment>
+      }
+      avatar="https://avatars.githubusercontent.com/u/60047489?v=4"
+      // dismissible
+      // icon='alert-circle'
       // linkChildren={
       //   <div>This is a success alert — <Link to='#' children='check it out' />!</div>
       // }
-      // background='alert-important alert-danger'
+      //background='alert-important alert-danger'
     />
-    <Link native to='/' children='Hello' /> 
-    <Button className='mb-2 mt-2' fullWidth onClick={() => {}} type='primary' children='Test Button' />
+    {/* <Link native to='/' children='Hello' />  */}
+    <Button className='mb-2' fullWidth onClick={() => {}} type='primary' children='Test Button' />
     <Label children="Enter your Name"/>
     <Input loading className="mb-2" value={state} onChange={(e) => setState(e.target.value)} placeholder="enter your name" />
-    <Select className="mb-3" options={['one', 'two', 'three']} label='Select' />
+    <Label children="Select"/>
+    <Select className="mb-3" options={[{label:'one', value: 'd'},{label: 'two', value: 's'}]} />
+    <Switch 
+      children='Switch' 
+      checked={checked} 
+      onChange={(e) => setChecked(e.target.checked)}
+    />
     <Switch 
       checked={checked} 
-      label='Switch' 
-      content='Switch itt up!'
+      onChange={(e) => setChecked(e.target.checked)}
+    />
+    <Checkbox 
+      children='Checkbox'
+      checked={checked}  
       onChange={(e) => setChecked(e.target.checked)}
     />
     <div> 
       <Label className="mb-2" children='Radios'/>
       <Radio 
-        checkboxLabel='Radio'
+        children='Radio'
         checked={radio === 'one'}  
         onChange={() => {setRadio('one')}}
-        content='Radio itt1 up!'
       />
       <Radio 
-        checkboxLabel='Radio'  
+        children='Radio'  
         checked={radio === 'two'}  
         onChange={() => {setRadio('two')}}
-        content='Radio itt2 up!'
       />
       <Radio
-        
-        checkboxLabel='Radio'
+        children='Radio'
         checked={radio === 'three'}  
-        onChange={() => {setRadio('three')}
-        }
-        content='Radio itt3 up!'
+        onChange={() => {setRadio('three')}}
       />
     </div>
-    <Checkbox 
-      label='Hit Checkbox' 
-      checkboxLabel='Checkbox'
-      checked={checked}  
-      onChange={(e) => setChecked(e.target.checked)}
-      content='Checkbox itt up!'
+    <Card
+      title='Title Card'
+      titleClass='card-header'
+      actions={'one'}
+      children={"Hello I'am a card"}
+      className='mb-3'
+    />
+    <TextArea 
+      value='im a text area'
+      onChange={() => {}}
     />
   </div>
   )

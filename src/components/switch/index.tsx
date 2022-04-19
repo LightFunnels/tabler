@@ -1,23 +1,21 @@
 import React from 'react';
 
 type Props = {
-  containerClassName?: string
-  content: string
-  label: string
+  className?: string
+  children?: string
 }
 
-export function Switch({containerClassName, content, label, disabled, ...props}: Props & React.InputHTMLAttributes<HTMLInputElement>){
+export function Switch({className, children, ...props}: Props & React.InputHTMLAttributes<HTMLInputElement>){
   return (
-    <div className={`${containerClassName ?? ''}`}>
-      <div className="form-label">{label}</div>
+    <div className={className}>
       <label 
+        className={`form-check form-switch`} 
         children={
           <React.Fragment>
             <input {...props} className="form-check-input" type='checkbox' />
-            <span children={content} className="form-check-label" />
+            {children && <span children={children} className="form-check-label" />}
           </React.Fragment>
         } 
-        className={`form-check form-switch`} 
       />
     </div>
   )

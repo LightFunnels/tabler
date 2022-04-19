@@ -1,21 +1,22 @@
 import React from 'react';
 
 type Props = {
-  containerClassName?: string
-  label: string
-  checkboxLabel: string
+  className?: string
+  children?: string
 }
 
-export function Checkbox({label, checkboxLabel, containerClassName, disabled, ...props}: Props & React.InputHTMLAttributes<HTMLInputElement>){
+export function Checkbox({children, className, ...props}: Props & React.InputHTMLAttributes<HTMLInputElement>){
   return (
-    <div className={`${containerClassName ?? ''}`}>
-      {label && (<div className="form-label">{label}</div>)}
-      <div>
-        <label className="form-check">
-          <input {...props} className="form-check-input" type="checkbox" />
-          <span children={checkboxLabel} className="form-check-label" />
-        </label>
-      </div>
-    </div>   
+    <div className={className}>
+      <label 
+        className={`form-check`}
+        children={
+          <React.Fragment>
+            <input {...props} className="form-check-input" type="checkbox" />
+            {children && <span children={children} className="form-check-label" />}   
+          </React.Fragment>
+        }  
+      />
+    </div>
   )
 }
