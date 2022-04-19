@@ -39,6 +39,7 @@ module.exports = {
 		"react/jsx-pascal-case": [1],
 		"react/jsx-props-no-multi-spaces": [1],
 		"react/jsx-tag-spacing": [1],
+		"react/prop-types": [0],
 		"react/jsx-wrap-multilines": [
 			1,
 			{
