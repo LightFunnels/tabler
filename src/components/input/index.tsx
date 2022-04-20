@@ -1,7 +1,6 @@
 import React from 'react';
 
 type Props = {
-	className?: string
 	loading?: boolean
 }
 
@@ -11,7 +10,7 @@ export function Input({className, loading, ...props} : Props & React.InputHTMLAt
 			{
 				loading && (
 					<span className="input-icon-addon">
-						<div className="spinner-border spinner-border-sm text-muted" role="status"></div>
+						<div className="spinner-border spinner-border-sm text-muted" role="status" />
 					</span>
 				)
 			}

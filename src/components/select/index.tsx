@@ -3,16 +3,18 @@ import React from 'react';
 export type Option = {label: React.ReactNode, value: string};
 
 type Props = {
-	className?: string
 	options: Option[]
 }
 
-export function Select(props: Props & React.InputHTMLAttributes<HTMLSelectElement>){
+export function Select({className, options, ...props}: Props & React.InputHTMLAttributes<HTMLSelectElement>){
 	return (
-		<div className={props.className}>
-			<select className="form-select">
+		<div className={className}>
+			<select 
+				{...props}
+				className="form-select"
+			>
 				{
-					props.options.map((item) => (
+					options.map((item) => (
 						<option 
 							key={item.value} 
 							value={item.value}

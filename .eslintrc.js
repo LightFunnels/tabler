@@ -25,6 +25,7 @@ module.exports = {
 		"react/no-array-index-key": [2],
 		"react/no-unstable-nested-components": [2],
 		"react/no-unused-prop-types": [2],
+		"react/no-children-prop": [0],
 		"react/jsx-curly-newline": [
 			2,
 			{

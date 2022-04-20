@@ -13,20 +13,16 @@ type Props = {
 	children?: React.ReactNode
 	linkChildren?: React.ReactNode
 	icon?: React.ReactNode
-	avatar?: React.ReactNode
+	avatar?: string
 	background?: string
 }
 
 export function Alert(props: Props){
 	return (
-		<div className={`alert ${props.dismiss ? 'alert-dismissible' : ''} ${props.background} ${props.className}`}>
-			{!props.dismiss && (
-				<React.Fragment>
-					{props.children}
-				</React.Fragment>
-			)}
-			{props.dismiss && (
-				<React.Fragment>
+		<div className={`alert ${props.dismiss ? 'alert-dismissible' : ''} ${props.background ?? ''} ${props.className ?? ''}`}>
+			{!props.dismiss && props.children}
+			{
+				props.dismiss && (
 					<div className='d-flex'>
 						{props.icon && <i className={`icon alert-icon ti ti-${props.icon}`} />}
 						{props.avatar && <img className='avatar float-start me-3' src={props.avatar} alt='avatar' />}
@@ -38,8 +34,8 @@ export function Alert(props: Props){
 							onClick={props.dismiss} 
 						/>
 					</div>
-				</React.Fragment>
-			)}
+				)
+			}
 			{props.linkChildren}
 		</div>
 	)
