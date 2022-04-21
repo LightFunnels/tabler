@@ -109,7 +109,16 @@ function App(){
 				value='im a text area'
 				className="mb-2"
 			/>
-			<Dropdown children='Im a dropdown' />
+			<Dropdown 
+				label='Toggle'
+				children={
+					<React.Fragment>
+						<div className="dropdown-item">Item1</div>
+						<div className="dropdown-item">Item1</div>
+						<div className="dropdown-item">Item1</div>
+					</React.Fragment>
+				}
+			/>
 			<Divider className="mb-3" children="im a divider" />
 			<Spinner />
 		</div>

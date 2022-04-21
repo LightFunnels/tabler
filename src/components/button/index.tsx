@@ -7,7 +7,6 @@ interface Props extends Omit< React.ButtonHTMLAttributes<HTMLButtonElement>, 'ty
 	type?: 'primary' | 'danger' | undefined
 }
 
-
 export function Button({className, loading, fullWidth, type, btnType, ...props}: Props){
 	return (
 		<button

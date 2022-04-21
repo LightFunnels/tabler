@@ -3,7 +3,7 @@ import React from 'react';
 export function Switch({className, children, ...props}:  React.InputHTMLAttributes<HTMLInputElement>){
 	return (
 		<label 
-			className={`form-check form-switch ${className ?? ""}`} 
+			className={`form-check form-switch ${!children ? 'form-check-single' : ''} ${className ?? ""}`} 
 			children={
 				(
 					<React.Fragment>
