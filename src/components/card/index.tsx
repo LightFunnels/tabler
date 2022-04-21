@@ -17,9 +17,11 @@ export function Card(props: Props){
 						<h3 className="card-title">
 							{props.title}
 						</h3>
-						<div className='card-actions'>
-							{props.actions}
-						</div>
+						{props.actions && (
+							<div className='card-actions'>
+								{props.actions}
+							</div>
+						)}
 					</div>
 				)
 			}

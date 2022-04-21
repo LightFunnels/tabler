@@ -9,7 +9,6 @@ interface Props extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'typ
 	iconRight?: React.ReactNode
 }
 
-
 export function Button({ title, className, type, loading, btnType, iconLeft, iconRight, ...props }: Props) {
 	return (
 		<button
