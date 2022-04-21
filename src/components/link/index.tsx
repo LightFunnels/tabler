@@ -12,13 +12,13 @@ export function Link({className, native, to, ...props}: Props & React.AnchorHTML
 			<RDLink 
 				{...props}
 				to={to}
-				className={`alert-link ${className}`} 
+				className={`alert-link ${className ?? ''}`} 
 			/>
 		) : (
 			<a 
 				{...props}
 				href={to}
-				className={`alert-link ${className}`}
+				className={`alert-link ${className ?? ''}`}
 			/>
 		)
 	)

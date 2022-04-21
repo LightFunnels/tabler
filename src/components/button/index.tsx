@@ -1,12 +1,14 @@
 import React from "react";
 
-type Props = {
+interface Props extends Omit< React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
 	loading?: boolean
-	btnType?: string
+	btnType?: "button" | "submit" | "reset" | undefined
 	fullWidth?: boolean
+	type?: 'primary' | 'danger' | undefined
 }
 
-export function Button({className, loading, fullWidth, type, btnType, ...props}: Props & React.ButtonHTMLAttributes<HTMLButtonElement>){
+
+export function Button({className, loading, fullWidth, type, btnType, ...props}: Props){
 	return (
 		<button
 			{...props}
@@ -14,11 +16,11 @@ export function Button({className, loading, fullWidth, type, btnType, ...props}:
 				`	btn
 					${fullWidth ? 'w-full' : ''}
 					${loading ? 'btn-loading' : ''} 
-					${btnType === 'primary' ? 'btn-primary' : btnType === 'danger' ? 'btn-danger' : ''}
+					${type === 'primary' ? 'btn-primary' : type === 'danger' ? 'btn-danger' : ''}
 					${className ?? ''}
 				`
 			}
-			type={type}
+			type={btnType}
 		/>
 	)
 }

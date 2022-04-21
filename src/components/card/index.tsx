@@ -3,20 +3,23 @@ import React from 'react';
 type Props = {
 	className?: string
 	title?: React.ReactNode
+	headerClass?: string
 	children: React.ReactNode
 	actions?: React.ReactNode
 }
-//actions 
+
 export function Card(props: Props){
-	return (
-		<div className={`card ${props.className}`}>
+  return (
+		<div className={`card ${props.className ?? ''}`}>
 			{
-				props.actions && (
-					<div className={`card-header ${props.actions ? 'd-flex align-items-center justify-content-between' : ''} ${!props.title ? 'text-end' : ''}`}>
+				props.title && (
+					<div className={`card-header ${props.headerClass ?? ''}`}>
 						<h3 className="card-title">
 							{props.title}
 						</h3>
-						{props.actions}
+						<div className='card-actions'>
+							{props.actions}
+						</div>
 					</div>
 				)
 			}

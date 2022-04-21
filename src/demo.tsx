@@ -1,6 +1,21 @@
 import {createRoot} from "react-dom/client"
 import React from "react";
-import {Button, Alert, Link, Input, Label, Select, Switch, Radio, Checkbox, Card, TextArea, Dropdown} from "./components"
+import {
+	Button, 
+	Alert, 
+	Link, 
+	Input, 
+	Label, 
+	Select, 
+	Switch, 
+	Radio, 
+	Checkbox, 
+	Card, 
+	TextArea, 
+	Dropdown, 
+	Divider,
+	Spinner
+} from "./components"
 
 createRoot(window.app)
 	.render(<App />);
@@ -32,12 +47,12 @@ function App(){
 				// }
 				//background='alert-important alert-danger'
 			/>
-			<Link native to='/' children='Hello' />
+			<Link native to='/' children='Im a link' />
 			<Button 
-				className='mb-2' 
+				className='mb-2 mt-2' 
 				fullWidth 
 				onClick={() => console.log('clicked')} 
-				btnType='primary' 
+				type='primary' 
 				children='Test Button' 
 			/>
 			<Label children="Enter your Name" />
@@ -92,8 +107,11 @@ function App(){
 			/>
 			<TextArea 
 				value='im a text area'
+				className="mb-2"
 			/>
 			<Dropdown children='Im a dropdown' />
+			<Divider className="mb-3" children="im a divider" />
+			<Spinner />
 		</div>
 	)
 }
