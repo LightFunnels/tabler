@@ -1,26 +1,26 @@
 import React from "react";
 
-interface Props extends Omit< React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
+interface Props extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
+	title?: string
+	type?: 'primary' | 'danger' | undefined
 	loading?: boolean
 	btnType?: "button" | "submit" | "reset" | undefined
-	fullWidth?: boolean
-	type?: 'primary' | 'danger' | undefined
+	iconLeft?: React.ReactNode
+	iconRight?: React.ReactNode
 }
 
 
-export function Button({className, loading, fullWidth, type, btnType, ...props}: Props){
+export function Button({ title, className, type, loading, btnType, iconLeft, iconRight, ...props }: Props) {
 	return (
 		<button
 			{...props}
 			className={
 				`	btn
-					${fullWidth ? 'w-full' : ''}
-					${loading ? 'btn-loading' : ''} 
-					${type === 'primary' ? 'btn-primary' : type === 'danger' ? 'btn-danger' : ''}
 					${className ?? ''}
+					${type === 'primary' ? 'btn-primary' : type === 'danger' ? 'btn-danger' : ''}
 				`
 			}
 			type={btnType}
-		/>
+		>{iconLeft}{title}{iconRight}</button>
 	)
 }
