@@ -25,6 +25,7 @@ function App(){
 	const [state, setState] = React.useState('');
 	const [checked, setChecked] = React.useState(false);
 	const [radio, setRadio] = React.useState('')
+	const [show, setShow] = React.useState(false);
 	return (
 		<div className='p-3'>
 			<Alert 
@@ -111,11 +112,13 @@ function App(){
 			/>
 			<Dropdown 
 				label='Toggle'
+				show={show}
+				setShow={setShow}
 				children={
 					<React.Fragment>
 						<div className="dropdown-item">Item1</div>
-						<div className="dropdown-item">Item1</div>
-						<div className="dropdown-item">Item1</div>
+						<div className="dropdown-item">Item2</div>
+						<div className="dropdown-item">Item3</div>
 					</React.Fragment>
 				}
 			/>

@@ -1,6 +1,6 @@
 import React from "react";
 
-interface Props extends Omit< React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
+interface Props extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
 	loading?: boolean
 	btnType?: "button" | "submit" | "reset" | undefined
 	fullWidth?: boolean
