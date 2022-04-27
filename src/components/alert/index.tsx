@@ -17,7 +17,7 @@ type Props = {
 	background?: string
 }
 
-export function Alert(props: Props){
+export function Alert(props: Props) {
 	return (
 		<div className={`alert ${props.dismiss ? 'alert-dismissible' : ''} ${props.background ?? ''} ${props.className ?? ''}`}>
 			{!props.dismiss && props.children}
@@ -29,9 +29,9 @@ export function Alert(props: Props){
 						<div>
 							{props.children}
 						</div>
-						<a 
-							className={`btn-close ${props.background ? 'btn-close-white' : ''}`} 
-							onClick={props.dismiss} 
+						<a
+							className={`btn-close ${props.background ? 'btn-close-white' : ''}`}
+							onClick={props.dismiss}
 						/>
 					</div>
 				)
