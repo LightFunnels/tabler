@@ -2,26 +2,16 @@ import React from 'react';
 
 type Props = {
 	className?: string
-	children?: string
-	users?: {id: number, first_name: string, avatar: string}[]
+	src: string
+	alt?: string
 }
  
 export function Avatar(props : Props){
-	return !props.users ? 
-		(
-			<span 
-				className={`avatar ${props.className ?? ''}`} 
-				children={props.children} 
+	return (
+			<img
+				className={`avatar w-4 h-4 ${props.className ?? ''}`} 
+				src={props.src}
+				alt={props.alt}
 			/>
-		) : (
-			<div className='avatar-list avatar-list-stacked'>
-				{props.users.map((item, index) => (
-					<img 
-						key={item.id+'-'+index}
-						className='avatar' 
-						src={item.avatar} 
-					/>
-				))}
-			</div>
 		)
 }

@@ -13,3 +13,5 @@ export { Dropdown } from "./dropdown";
 export { Divider } from "./divider";
 export { Spinner } from "./spinner";
 export { Toast } from "./toast";
+export { Avatar } from "./avatar";
+export { PageHeader } from "./page-header";

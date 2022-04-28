@@ -2,9 +2,11 @@ import React from 'react';
 
 type Props = {
 	loading?: boolean
+	rightIcon?: React.ReactNode
+	leftIcon?: React.ReactNode
 }
 
-export function Input({className, loading, ...props} : Props & React.InputHTMLAttributes<HTMLInputElement>){
+export function Input({className, loading, type, rightIcon, leftIcon, ...props} : Props & React.InputHTMLAttributes<HTMLInputElement>){
 	return (
 		<div className={`input-icon ${className ?? ""}`}>
 			{
@@ -14,11 +16,27 @@ export function Input({className, loading, ...props} : Props & React.InputHTMLAt
 					</span>
 				)
 			}
-			<input 
-				{...props}
-				className={'form-control'}
-				type='text'
-			/>
+			{
+				leftIcon && (
+					<div className='input-icon-addon'>
+						{leftIcon}
+					</div>
+				)
+			}
+			{
+				<input 
+					{...props}
+					className={'form-control'}
+					type={type}
+				/>
+			}
+			{
+				rightIcon && (
+					<div className='input-icon-addon'>
+						{rightIcon}
+					</div>
+				)
+			}
 		</div>
 	)
 }

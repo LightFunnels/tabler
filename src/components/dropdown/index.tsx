@@ -1,38 +1,43 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { usePopper } from 'react-popper';
+import {createPortal} from 'react-dom';
 
 type Props = {
 	className?: string
 	btnClass?: string
-	children?: React.ReactNode
+	children: React.ReactNode
 	label: string
-	header?: string
-	arrow?: boolean
 }
 
 export function Dropdown(props: Props) {
-	const [show, setShow] = useState(false);
+	const [isOpen, setIsOpen] = React.useState(false);
+  const refElem = React.useRef(null);
+  const popElem = React.useRef(null);
 
-	return (
-		<React.Fragment>
-			<div className={`dropdown ${props.className ?? ''}`}>
-				<button onClick={() => setShow(!show)} className={`dropdown-btn dropdown-toggle btn btn-outline w-full justify-content-between ${props.btnClass ?? ''}`}>
-					{props.label}
-				</button>
-			</div>
-			{
-				show && (
-					<div className={`dropdown-menu w-full ${show ? "d-block" : ""} ${props.arrow ? 'dropdown-menu-arrow' : ''}`}>
-						{
-							props.header && (
-								<span className="dropdown-header">
-									{props.header}
-								</span>
-							)
-						}
-						{props.children}
-					</div>
-				)
-			}
-		</React.Fragment >
-	)
-}
+  const { styles, attributes } = usePopper(refElem.current, popElem.current);
+
+  return (
+    <React.Fragment>
+      <button 
+				ref={refElem}
+				className={`btn ${props.btnClass ?? ''}`}
+				onClick={() => setIsOpen(!isOpen)}
+				type="button" 
+			>
+        {props.label}
+      </button>
+
+      {isOpen && createPortal(
+        <div
+					className={`${props.className}`}
+          ref={popElem}
+          style={styles.popper}
+          {...attributes.popper}
+        >
+          {props.children}
+        </div>,
+        document.querySelector('#app')
+      )}
+    </React.Fragment>
+  );
+};
