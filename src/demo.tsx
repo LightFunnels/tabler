@@ -17,7 +17,9 @@ import {
 	Spinner,
 	Avatar,
 	PageHeader,
-	Toast
+	Toast,
+	EmptyState,
+	Modal,
 } from "./components";
 
 createRoot(window.app)
@@ -29,19 +31,21 @@ function App(){
 	const [checked, setChecked] = React.useState(false);
 	const [radio, setRadio] = React.useState('');
 	const [toast, toggleToast] = React.useState(false);
+	const [isOpen, open, close] = Modal.useModalState(false);
 	return (
 		<div className='p-3'>
 			<Label children="Toast:"/>
 			<div className="d-flex mb-2">
-				<Toast 
-					show={toast} 
-					dismiss={() => toggleToast(false)} 
-					message={
-						<>
-							<div>this is a toast</div>
-						</>
-					}
-				/>
+				{toast && (
+					<Toast 
+						dismiss={() => toggleToast(false)} 
+						message={
+							<React.Fragment>
+								<div>this is a toast</div>
+							</React.Fragment>
+						}
+					/>
+				)}
 				<Button 
 					className="ms-2" 
 					onClick={() => toggleToast(!toast)} 
@@ -49,13 +53,37 @@ function App(){
 				/>
 			</div>
 			<Label children="Dropdown:"/>
-			<Dropdown 
+			<Dropdown			
 				label='Drop' 
 				children={
-					<div className="dropdown-item">Im a dropdown</div>
+					<React.Fragment>
+						<div className="dropdown-item"><i className="dropdown-item-icon ti ti-settings fs-2"/>Im a dropdown</div>
+						<div className="dropdown-item">Im a dropdown</div>
+						<div className="dropdown-item">Im a dropdown</div>
+					</React.Fragment>
 				} 
 			/>
-			{/* <Example2 /> */}
+			<Label className="mt-2" children="Modal:"/>
+			{isOpen && (
+				<Modal 
+					isOpen={isOpen}
+					close={close}
+					body='this is the body...' 
+					title="This is modal" 
+					footer={
+						<React.Fragment>
+							<Button className="me-auto" type="primary" children='Save' />
+							<Button children='Cancel' />
+						</React.Fragment>
+					}
+				/>
+			)}
+			<Button 
+				onClick={open} 
+				children='Open Modal' 
+				className="mb-2" 
+				type="primary"
+			/>
 			<Label className="mt-3" children="Page Header:" />
 			<PageHeader 
 				title='This is a title' 
@@ -222,6 +250,23 @@ function App(){
 			<Avatar 
 				className="w-4 h-4" 
 				src='https://images.unsplash.com/photo-1650622721875-a923cba9e1b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80' 
+			/>
+			<Label className="mt-2" children="Empty State:"/>
+			<EmptyState 
+				title='Iam empty' 
+				subtitle="please make sure to reload" 
+				header='404'
+				actions={
+					<Button 
+						children={
+							<React.Fragment>
+								<i className="icon ti ti-settings"/>
+								Reload
+							</React.Fragment>
+						}
+						type='primary'
+					/>
+				}
 			/>
 		</div>
 	)

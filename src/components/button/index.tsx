@@ -10,12 +10,7 @@ export function Button({ title, className, type, loading, btnType, children, ...
 	return (
 		<button
 			{...props}
-			className={
-				`	btn
-					${className ?? ''}
-					${type === 'primary' ? 'btn-primary' : type === 'danger' ? 'btn-danger' : ''}
-				`
-			}
+			className={`btn ${className ?? ''} ${type === 'primary' ? 'btn-primary' : type === 'danger' ? 'btn-danger' : ''}`}
 			type={btnType}
 		>
 			{children}
