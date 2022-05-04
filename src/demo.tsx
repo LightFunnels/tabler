@@ -20,7 +20,9 @@ import {
 	Toast,
 	EmptyState,
 	Modal,
+	Tooltip,
 } from "./components";
+
 
 createRoot(window.app)
 	.render(<App />);
@@ -32,6 +34,7 @@ function App(){
 	const [radio, setRadio] = React.useState('');
 	const [toast, toggleToast] = React.useState(false);
 	const [isOpen, open, close] = Modal.useModalState(false);
+	
 	return (
 		<div className='p-3'>
 			<Label children="Toast:"/>
@@ -51,6 +54,10 @@ function App(){
 					onClick={() => toggleToast(!toast)} 
 					children='toggle'
 				/>
+			</div>
+			<div>
+				<Label children="Tooltip:"/>
+				<Tooltip element='Im an element' tooltip='Im a tooltip' placement="bottom-end" />
 			</div>
 			<Label children="Dropdown:"/>
 			<Dropdown			
@@ -73,7 +80,7 @@ function App(){
 					footer={
 						<React.Fragment>
 							<Button className="me-auto" type="primary" children='Save' />
-							<Button children='Cancel' />
+							<Button children='Cancel' onClick={close} />
 						</React.Fragment>
 					}
 				/>
@@ -103,6 +110,7 @@ function App(){
 						<a href="#" className="btn btn-white">
 							New view
 						</a>
+						<Tooltip element='Im an element' tooltip='Im a tooltip' placement="right-end" />
 					</React.Fragment>
 				}
 			/>

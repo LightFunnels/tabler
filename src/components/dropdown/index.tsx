@@ -14,7 +14,7 @@ export function Dropdown(props: Props) {
 	const [referenceElement, setReferenceElement] = React.useState(null);
   const [popperElement, setPopperElement] = React.useState(null);
 
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {placement: 'bottom-start'});
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {placement: 'bottom-start', modifiers: [ { name: 'offset', options: { offset: [0, 8] } } ]});
 
   return (
     <div className='dropdown'>
