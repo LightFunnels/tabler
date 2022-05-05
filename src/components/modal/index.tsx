@@ -8,10 +8,10 @@ type Props = {
 	footer?: React.ReactNode
 	className?: string
 	close: () => void
-	isOpen?: boolean
+	isOpen: boolean
 }
 
-Modal.useModalState = function(initial: Boolean = false) {
+Modal.useModalState = function(initial: boolean = false) {
 	const [state, setState] = React.useState(initial);
 	return [
 		state,
@@ -22,8 +22,9 @@ Modal.useModalState = function(initial: Boolean = false) {
 
 export function Modal(props : Props) {
 	return createPortal(
-		<div className={`modal fade ${props.isOpen ? 'open' : ''} ${props.className ?? ''}`}>
-			<div className={`modal-dialog custom`}>
+		<React.Fragment>
+			<div className={`${props.isOpen ? 'open' : ''}`} onClick={props.close} />
+			<div className={`modal-dialog custom ${props.className ?? ''}`}>
 				<div className="modal-content">
 					<div className="modal-header">
 						<h5 className="modal-title">{props.title}</h5>
@@ -39,7 +40,7 @@ export function Modal(props : Props) {
 					)}
 				</div>
 			</div>
-		</div>,
+		</React.Fragment>,
 		document.querySelector('#modals')
 	)
 }

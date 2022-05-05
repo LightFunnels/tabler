@@ -4,7 +4,7 @@ import { usePopper, PopperChildrenProps } from 'react-popper';
 type Props = {
 	element: React.ReactNode
 	tooltip: React.ReactNode
-	placement?: PopperChildrenProps["placement"] | undefined
+	placement?: PopperChildrenProps["placement"]
 }
 
 export function Tooltip(props: Props){
@@ -13,7 +13,7 @@ export function Tooltip(props: Props){
 	const [show, setShow] = React.useState(false);
 	const [arrowClass, setArrowClass] = React.useState('');
 
-	const { styles, attributes } = usePopper(refElem, popElem, { placement: props.placement ?? 'bottom-start', modifiers: [ { name: 'offset', options: { offset: [0, 4] } }] });
+	const { styles, attributes } = usePopper(refElem, popElem, { placement: props.placement ?? 'bottom-start', modifiers: [{ name: 'offset', options: { offset: [0, 4] } }] });
 
 	function arrowPlacement(placement){
 		switch(placement){

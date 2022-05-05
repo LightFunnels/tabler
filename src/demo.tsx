@@ -57,7 +57,7 @@ function App(){
 			</div>
 			<div>
 				<Label children="Tooltip:"/>
-				<Tooltip element='Im an element' tooltip='Im a tooltip' placement="bottom-end" />
+				<Tooltip element='Im an element' tooltip='Im a tooltip' placement="top-end" />
 			</div>
 			<Label children="Dropdown:"/>
 			<Dropdown			
