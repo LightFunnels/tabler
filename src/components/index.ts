@@ -16,8 +16,5 @@ export { Toast } from "./toast";
 export { Avatar } from "./avatar";
 export { PageHeader } from "./page-header";
 export { EmptyState } from "./empty-state";
-<<<<<<< HEAD
-=======
 export { Modal } from "./modal";
 export { Tooltip } from "./tooltip";
->>>>>>> 385f76cef223a4fc890fa08f69ff45d9d6820cb1
