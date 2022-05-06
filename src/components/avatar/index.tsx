@@ -1,17 +1,10 @@
 import React from 'react';
 
-type Props = {
-	className?: string
-	src: string
-	alt?: string
-}
- 
-export function Avatar(props : Props){
+export function Avatar({ className, ...props } : React.ImgHTMLAttributes<HTMLImageElement>){
 	return (
 			<img
-				className={`avatar w-4 h-4 ${props.className ?? ''}`} 
-				src={props.src}
-				alt={props.alt}
+				{...props}
+				className={`avatar w-4 h-4 ${className ?? ''}`} 
 			/>
 		)
 }
