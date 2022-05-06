@@ -18,3 +18,4 @@ export { PageHeader } from "./page-header";
 export { EmptyState } from "./empty-state";
 export { Modal } from "./modal";
 export { Tooltip } from "./tooltip";
+export { Tabs } from "./tabs";

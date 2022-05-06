@@ -21,6 +21,7 @@ import {
 	EmptyState,
 	Modal,
 	Tooltip,
+	Tabs
 } from "./components";
 
 
@@ -34,6 +35,7 @@ function App(){
 	const [radio, setRadio] = React.useState('');
 	const [toast, toggleToast] = React.useState(false);
 	const [isOpen, open, close] = Modal.useModalState(false);
+	const [show, setShow] = React.useState<'home' | 'profile' | 'contact'>('home');
 	
 	return (
 		<div className='p-3'>
@@ -90,6 +92,58 @@ function App(){
 				children='Open Modal' 
 				className="mb-2" 
 				type="primary"
+			/>
+			<Label className="mt-2" children="Tabs:"/>
+			<Tabs
+				card
+				className="mb-3"
+				tabs={
+					<React.Fragment>
+						<li className="nav-item cursor-pointer">
+							<div onClick={() => setShow('home')} className={`nav-link ${show === 'home' ? 'active' : ''}`}>
+								<i className="icon me-2 ti ti-home" />
+								Home
+							</div>
+						</li>
+						<li className="nav-item cursor-pointer">
+							<div onClick={() => setShow('profile')} className={`nav-link ${show === 'profile' ? 'active' : ''}`}>
+								<i className="icon me-2 ti ti-propeller" />
+								Profile
+							</div>
+						</li>
+						<li className="nav-item cursor-pointer ms-auto">
+							<div className="nav-link">
+								<i className="icon ti ti-settings" />
+							</div>
+						</li>
+					</React.Fragment>
+				}
+				body={
+					<React.Fragment>
+						<div className={`tab-pane ${show === 'home' ? 'active show' : ''}`}>
+							<div>Cursus turpis vestibulum, dui in pharetra vulputate id sed non turpis ultricies fringilla at sed facilisis lacus pellentesque purus nibh</div>
+						</div>
+						<div className={`tab-pane ${show === 'profile' ? 'active show' : ''}`}>
+							<div>Fringilla egestas nunc quis tellus diam rhoncus ultricies tristique enim at diam, sem nunc amet, pellentesque id egestas velit sed</div>
+						</div>
+					</React.Fragment>
+				}
+			/>
+			<Tabs
+				className="d-flex"
+				tabs={
+					<React.Fragment>
+						<li className="nav-item cursor-pointer">
+							<div onClick={() => setShow('home')} className={`nav-link ${show === 'home' ? 'active' : ''}`}>Home</div>
+						</li>
+						<li className="nav-item cursor-pointer">
+							<div onClick={() => setShow('profile')} className={`nav-link ${show === 'profile' ? 'active' : ''}`}>Profile</div>
+						</li>
+						<li className="nav-item cursor-pointer">
+							<div onClick={() => setShow('contact')} className={`nav-link ${show === 'contact' ? 'active' : ''}`}>Contact</div>
+						</li>
+					</React.Fragment>
+				}
 			/>
 			<Label className="mt-3" children="Page Header:" />
 			<PageHeader 
