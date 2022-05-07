@@ -1,7 +1,7 @@
 import React from 'react';
 
 type Props = {
-	message?: React.ReactNode
+	message: React.ReactNode
 	dismiss?: () => void
 	className?: string
 }
@@ -15,11 +15,12 @@ export function Toast(props: Props) {
 				<div className="toast-body text-black">
 					{props.message}
 				</div>
-				<button 
-					className={`btn-close me-2 m-auto`} 
-					type="button" 
-					onClick={props.dismiss}
-				/>
+				{props.dismiss && (
+					<button 
+						className={`btn-close me-2 m-auto`} 
+						onClick={props.dismiss}
+					/>
+				)}
 			</div>
 		</div>
 	)

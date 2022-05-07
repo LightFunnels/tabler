@@ -34,7 +34,7 @@ function App(){
 	const [checked, setChecked] = React.useState(false);
 	const [radio, setRadio] = React.useState('');
 	const [toast, toggleToast] = React.useState(false);
-	const [isOpen, open, close] = Modal.useModalState(false);
+	const [showModal, setShowModal] = React.useState(false);
 	const [show, setShow] = React.useState<'home' | 'profile' | 'contact'>('home');
 	
 	return (
@@ -73,22 +73,22 @@ function App(){
 				} 
 			/>
 			<Label className="mt-2" children="Modal:"/>
-			{isOpen && (
+			{showModal && (
 				<Modal 
-					isOpen={isOpen}
-					close={close}
+					modalState={showModal}
+					setModalState={setShowModal}
 					body='this is the body...' 
 					title="This is modal" 
 					footer={
 						<React.Fragment>
 							<Button className="me-auto" type="primary" children='Save' />
-							<Button children='Cancel' onClick={close} />
+							<Button children='Cancel' onClick={() => setShowModal(false)} />
 						</React.Fragment>
 					}
 				/>
 			)}
 			<Button 
-				onClick={open} 
+				onClick={() => setShowModal(true)} 
 				children='Open Modal' 
 				className="mb-2" 
 				type="primary"
@@ -285,8 +285,11 @@ function App(){
 			</div>
 			<Label children="Card:" />
 			<Card
-				// title='Title Card'
 				actions={'one'}
+				className='mb-3'
+				children="Hello I'am a card"
+			/>
+			<Card
 				className='mb-3'
 				children="Hello I'am a card"
 			/>

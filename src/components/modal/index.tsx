@@ -1,34 +1,25 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import './styles.css'
+import styles from './modal.scss';
 
 type Props = {
 	title: string
 	body: React.ReactNode
 	footer?: React.ReactNode
 	className?: string
-	close: () => void
-	isOpen: boolean
-}
-
-Modal.useModalState = function(initial: boolean = false) {
-	const [state, setState] = React.useState(initial);
-	return [
-		state,
-		function(){setState(true)},
-		function(){setState(false)}
-	] as const;
+	setModalState: (e:boolean) => void
+	modalState: boolean
 }
 
 export function Modal(props : Props) {
 	return createPortal(
 		<React.Fragment>
-			<div className={`${props.isOpen ? 'open' : ''}`} onClick={props.close} />
-			<div className={`modal-dialog custom ${props.className ?? ''}`}>
+			<div className={`${props.modalState ? styles.open : ''}`} onClick={() => props.setModalState(false)} />
+			<div className={`modal-dialog ${styles.custom} ${props.className ?? ''}`}>
 				<div className="modal-content">
 					<div className="modal-header">
 						<h5 className="modal-title">{props.title}</h5>
-						<button type="button" onClick={props.close} className="btn-close" />
+						<button type="button" onClick={() => props.setModalState(false)} className="btn-close" />
 					</div>
 					<div className="modal-body">
 						{props.body}
