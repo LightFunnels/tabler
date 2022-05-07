@@ -10,7 +10,7 @@ type Props = {
 export function PageHeader(props : Props) {
   return (
     <div className="container-xl">
-      <div className="page-header mt-5 mb-2">
+      <div className="page-header mt-5 mb-4">
         <div className="row g-2 align-items-center">
 					{
 						props.breadcrumbs && (

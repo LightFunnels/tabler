@@ -1,16 +1,17 @@
 import React from 'react';
+import "./tabs.scss"
 
-type Props = {	
+type Props = {
 	className?: string
 	tabs: React.ReactNode
 	body?: React.ReactNode
 	card?: boolean
 }
 
-export function Tabs(props: Props){
+export function Tabs(props: Props) {
 	return (
 		<div className={`${props.card ? 'card' : ''} ${props.className ?? ''}`}>
-			<ul className="nav nav-tabs">
+			<ul className="nav tabs">
 				{props.tabs}
 			</ul>
 			{
