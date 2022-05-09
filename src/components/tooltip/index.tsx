@@ -1,71 +1,149 @@
 import React from 'react';
-import { usePopper, PopperChildrenProps } from 'react-popper';
+// import { usePopper, PopperChildrenProps } from 'react-popper';
+import Popper from 'popper.js';
+import styles from './tooltip.scss';
+import Bugsnag from '@bugsnag/js';
 
-type Props = {
-	element: React.ReactNode
-	tooltip: React.ReactNode
-	placement?: PopperChildrenProps["placement"]
+
+export interface StaticPopoverProps{
+	target: React.MutableRefObject<HTMLElement>
+	placement?: Popper.Placement
+	flipEnabled?: boolean
+	parentOverflowEnabled?: boolean
+	className?: string
+	arrowClassName?: any
+	children: React.ReactNode
+	positionFixed?: boolean
 }
 
-export function Tooltip(props: Props){
-	const [refElem, setRefElem] = React.useState(undefined);
-	const [popElem, setPopElem] = React.useState(undefined);
-	const [show, setShow] = React.useState(false);
-	const [arrowClass, setArrowClass] = React.useState('');
+export const StaticPopover = React.forwardRef(
+ function ({
+		target,
+		placement,
+		flipEnabled,
+		parentOverflowEnabled,
+		className,
+		arrowClassName,
+		children,
+		// positionFixed,
+		...props
+	}: StaticPopoverProps, ref: React.MutableRefObject<HTMLElement>|null) {
 
-	const { styles, attributes } = usePopper(refElem, popElem, { placement: props.placement ?? 'bottom-start', modifiers: [{ name: 'offset', options: { offset: [0, 4] } }] });
+		let refPopover = React.useRef<any>();
+		let refArrow = React.useRef<any>();
 
-	function arrowPlacement(placement){
-		switch(placement){
-			case 'top':
-				case 'top-end':
-					case 'top-start':
-						setArrowClass('bs-tooltip-top');
-					break;
-			case 'bottom':
-				case 'bottom-end':
-					case 'bottom-start':
-						setArrowClass('bs-tooltip-bottom');
-					break;
-			case 'left':
-				case 'left-start':
-					case 'left-end':
-						setArrowClass('bs-tooltip-start');
-					break;
-			case 'right':
-				case 'right-start':
-					case 'right-end':
-						setArrowClass('bs-tooltip-end');
-					break;
-			default: setArrowClass('bs-tooltip-bottom');
-		}
+		React.useLayoutEffect(
+			function () {
+				let p = new Popper(
+					target.current,
+					refPopover.current,
+					{
+						placement: placement || 'bottom',
+						modifiers:{
+							arrow:{
+								element: refArrow.current
+							},
+							flip: {
+								enabled: flipEnabled !== undefined ? flipEnabled : true,
+							},
+							preventOverflow: {
+								enabled: parentOverflowEnabled !== undefined ? parentOverflowEnabled : true,
+							},
+							// positionFixed: positionFixed
+						}
+					}
+				);
+				return () => {
+					p.destroy();
+				}
+			},
+			[]
+		);
+
+		return (
+			<div
+				{...props}
+				className={styles.popover + ' ' + (className || '')}
+				ref={(e) => {
+					refPopover.current = e;
+					if(ref && e){
+						ref.current = e;
+					}
+				}}
+			>
+				<div className={styles.arrow + ' ' + (arrowClassName) } ref={refArrow} ></div>
+				{children}
+			</div>
+		)
 	}
+)
 
-	React.useEffect(() => {
-		arrowPlacement(props.placement);
-	}, [])
+type UsePopover = {disabled?: boolean, delay?: number, keepDelay?: number, ref?: React.MutableRefObject<HTMLDivElement|null>};
+export function usePopover(opts: UsePopover = {disabled: false, delay: 0, keepDelay: 0, ref: undefined}): [React.MutableRefObject<any>, boolean] {
 
-	return (
-		<React.Fragment>
-			<div 
-				onMouseOver={() => setShow(true)} 
-				onMouseLeave={() => setShow(false)} 
-				ref={setRefElem}
-				className='border'
-			>
-				{props.element}
-			</div>
-			<div 
-				ref={setPopElem} 
-				className={`tooltip ${show ? 'show' : ''} ${arrowClass} `} 
-				style={styles.popper} 
-				{...attributes.popper}
-			>
-				<div className="tooltip-arrow"></div>
-				<div className="tooltip-inner">
-					{props.tooltip}
-				</div>
-			</div>
-		</React.Fragment>
-	)
+	const targetRef = React.useRef<HTMLElement>();
+	const [show, setShow] = React.useState(false);
+	const ref = React.useRef<any>({});
+
+	React.useLayoutEffect(
+		function () {
+			if(opts.disabled){
+				return;
+			}
+			function mouseover(event) {
+				ref.current.status = 'over';
+				setTimeout(
+					function () {
+						if(ref.current.status !== 'left'){
+							setShow(true);
+						}
+					},
+					opts.delay || 0
+				);
+			}
+			function mouseleave(event) {
+				Promise.race([
+					opts.ref && opts.ref.current ?
+					new Promise(function(resolve){
+						opts.ref!.current!.addEventListener('mouseenter', function (){
+							resolve(true);
+						}, {once: true});
+					}) : Promise.resolve(false),
+					new Promise(function(resolve){
+						setTimeout(() => (resolve(false)), opts.keepDelay);
+					})
+				])
+				.then(
+					function(e){
+						function close(){
+							setShow(false);
+							ref.current.status = 'left';
+						}
+						if(e === true){
+							opts.ref!.current!.addEventListener('mouseleave', close, {once: true})
+						} else {
+							close();
+						}
+					}
+				);
+			}
+			if(!targetRef.current){
+				console.log('notify error');
+				Bugsnag.notify('Popover error');
+				return;
+			}
+			targetRef.current!.addEventListener('mouseover', mouseover);
+			targetRef.current!.addEventListener('mouseleave', mouseleave);
+			return () => {
+				// I still don't know why this is happening
+				if(targetRef.current){
+					targetRef.current!.removeEventListener('mouseover', mouseover);
+					targetRef.current!.removeEventListener('mouseleave', mouseleave);
+				}
+			}
+		},
+		[opts.disabled]
+	);
+
+	return [targetRef, show];
 }

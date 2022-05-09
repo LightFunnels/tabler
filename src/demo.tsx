@@ -20,10 +20,10 @@ import {
 	Toast,
 	EmptyState,
 	Modal,
-	Tooltip,
+	StaticPopover,
+	usePopover,
 	Tabs
 } from "./components";
-
 
 createRoot(window.app)
 	.render(<App />);
@@ -36,6 +36,9 @@ function App(){
 	const [toast, toggleToast] = React.useState(false);
 	const [showModal, setShowModal] = React.useState(false);
 	const [show, setShow] = React.useState<'home' | 'profile' | 'contact'>('home');
+
+	const [target, setTarget] = React.useState<any>(undefined);
+	const [ref, showP] = usePopover({});
 	
 	return (
 		<div className='p-3'>
@@ -59,7 +62,7 @@ function App(){
 			</div>
 			<div>
 				<Label children="Tooltip:"/>
-				<Tooltip element='Im an element' tooltip='Im a tooltip' placement="top-end" />
+				{/* <Tooltip tooltip={} element={} /> */}
 			</div>
 			<Label children="Dropdown:"/>
 			<Dropdown			
@@ -77,7 +80,33 @@ function App(){
 				<Modal 
 					modalState={showModal}
 					setModalState={setShowModal}
-					body='this is the body...' 
+					body={
+						<div>
+							this is the body...
+							{showP && (
+								<StaticPopover
+									placement='right'
+									target={target}
+									children={
+										<div>
+											Hello
+										</div>
+									}
+								/>
+							)}
+						<div
+							ref={ref}
+							onMouseOver={e => {
+								setTarget({current: e.target})
+							}}
+							onMouseLeave={() => {
+								setTarget(undefined);
+							}}
+						>
+							Hover Me
+						</div>
+						</div>
+					} 
 					title="This is modal" 
 					footer={
 						<React.Fragment>
@@ -164,7 +193,6 @@ function App(){
 						<a href="#" className="btn btn-white">
 							New view
 						</a>
-						<Tooltip element='Im an element' tooltip='Im a tooltip' placement="right-end" />
 					</React.Fragment>
 				}
 			/>
