@@ -46,7 +46,7 @@ function App(){
 			<div className="d-flex mb-2">
 				{toast && (
 					<Toast 
-					dismiss={() => toggleToast(false)} 
+					// dismiss={() => toggleToast(false)} 
 					message={
 						<React.Fragment>
 							<div>this is a toast</div>
