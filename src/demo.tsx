@@ -22,7 +22,8 @@ import {
 	Modal,
 	StaticPopover,
 	usePopover,
-	Tabs
+	Tabs,
+	AvatarList
 } from "./components";
 
 createRoot(window.app)
@@ -44,7 +45,7 @@ function App(){
 		<div className='p-3'>
 			<Label children="Toast:"/>
 			<div className="d-flex mb-2">
-				{toast && (
+				{/* {toast && ( */}
 					<Toast 
 						dismiss={() => toggleToast(false)} 
 						message={
@@ -53,7 +54,7 @@ function App(){
 							</React.Fragment>
 						}
 					/>
-				)}
+				{/* )} */}
 				<Button 
 					className="ms-2" 
 					onClick={() => toggleToast(!toast)} 
@@ -341,8 +342,40 @@ function App(){
 				src='https://images.unsplash.com/photo-1648737119247-e93f56878edf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80' 
 			/>
 			<Avatar 
-				className="w-4 h-4" 
+				className="w-4 h-4 avatar-rounded" 
 				src='https://images.unsplash.com/photo-1650622721875-a923cba9e1b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80' 
+			/>
+			<Avatar 
+				className="w-4 h-4 bg-red ms-1" 
+				firstName="Ismail"
+			/>
+			<Label className="mt-2" children="AvatarList:" />
+			<AvatarList 
+				stacked
+				children={
+					<React.Fragment>
+						<Avatar 
+							className="w-4 h-4 bg-red" 
+							firstName="ismail"
+						/>
+						<Avatar 
+							className="w-4 h-4" 
+							src='https://images.unsplash.com/photo-1650622721875-a923cba9e1b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80' 
+						/>
+						<Avatar 
+							className="w-4 h-4 bg-black" 
+							firstName="Nouf"
+						/>
+						<Avatar 
+							className="w-4 h-4 bg-yellow" 
+							firstName="Mazouni"
+						/>
+						<Avatar 
+							className="w-4 h-4 bg-blue" 
+							firstName="Omar"
+						/>
+					</React.Fragment>
+				} 
 			/>
 			<Label className="mt-2" children="Empty State:"/>
 			<EmptyState 

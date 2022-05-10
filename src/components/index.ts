@@ -19,3 +19,4 @@ export { EmptyState } from "./empty-state";
 export { Modal } from "./modal";
 export { StaticPopover, usePopover } from "./tooltip";
 export { Tabs } from "./tabs";
+export { AvatarList } from './avatar-list';
