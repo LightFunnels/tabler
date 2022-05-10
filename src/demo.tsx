@@ -29,7 +29,6 @@ import {
 createRoot(window.app)
 	.render(<App />);
 
-
 function App(){
 	const [state, setState] = React.useState('');
 	const [checked, setChecked] = React.useState(false);
@@ -45,16 +44,16 @@ function App(){
 		<div className='p-3'>
 			<Label children="Toast:"/>
 			<div className="d-flex mb-2">
-				{/* {toast && ( */}
+				{toast && (
 					<Toast 
-						dismiss={() => toggleToast(false)} 
-						message={
-							<React.Fragment>
-								<div>this is a toast</div>
-							</React.Fragment>
-						}
-					/>
-				{/* )} */}
+					dismiss={() => toggleToast(false)} 
+					message={
+						<React.Fragment>
+							<div>this is a toast</div>
+						</React.Fragment>
+					}
+				/>
+				)}
 				<Button 
 					className="ms-2" 
 					onClick={() => toggleToast(!toast)} 
@@ -63,7 +62,28 @@ function App(){
 			</div>
 			<div>
 				<Label children="Tooltip:"/>
-				{/* <Tooltip tooltip={} element={} /> */}
+				{showP && (
+					<StaticPopover
+						placement='right'
+						target={target}
+						children={
+							<div>
+								Hello
+							</div>
+						}
+					/>
+				)}
+				<div
+					ref={ref}
+					onMouseOver={e => {
+						setTarget({current: e.target})
+					}}
+					onMouseLeave={() => {
+						setTarget(undefined);
+					}}
+				>
+					Hover Me
+				</div>
 			</div>
 			<Label children="Dropdown:"/>
 			<Dropdown			
@@ -84,28 +104,6 @@ function App(){
 					body={
 						<div>
 							this is the body...
-							{showP && (
-								<StaticPopover
-									placement='right'
-									target={target}
-									children={
-										<div>
-											Hello
-										</div>
-									}
-								/>
-							)}
-						<div
-							ref={ref}
-							onMouseOver={e => {
-								setTarget({current: e.target})
-							}}
-							onMouseLeave={() => {
-								setTarget(undefined);
-							}}
-						>
-							Hover Me
-						</div>
 						</div>
 					} 
 					title="This is modal" 

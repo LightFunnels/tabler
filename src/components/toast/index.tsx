@@ -1,18 +1,30 @@
 import React from 'react';
+import './toast.scss';
 
 type Props = {
-	message: React.ReactNode
-	dismiss?: () => void
 	className?: string
+	dismiss?: () => void
+	message: React.ReactNode
+	timeout?: number
 }
 
 export function Toast(props: Props) {
-	return (
-		<div 
-			className={`toast show text-white border-0 ${props.className ?? ''}`}
+	
+	const [hide, setHide] = React.useState(false);
+
+	React.useEffect(() => {
+		const timer = setTimeout(() => {
+			setHide(true)
+		}, props.timeout ?? 3000);
+		return () => clearTimeout(timer);
+	}, []);
+
+	return !hide ? (
+		<div
+			className={`toast customToast p-2 text-center ${!hide ? 'showToast' : ''} ${props.className ?? ''}`}
 		>
 			<div className="d-flex">
-				<div className="toast-body text-black">
+				<div className="toast-body">
 					{props.message}
 				</div>
 				{props.dismiss && (
@@ -23,5 +35,5 @@ export function Toast(props: Props) {
 				)}
 			</div>
 		</div>
-	)
+	) : null
 }
