@@ -1,5 +1,5 @@
 import React from 'react';
-import './toast.scss';
+import styles from './toast.scss';
 
 type Props = {
 	className?: string
@@ -21,7 +21,7 @@ export function Toast(props: Props) {
 
 	return !hide ? (
 		<div
-			className={`toast customToast p-2 text-center ${!hide ? 'showToast' : ''} ${props.className ?? ''}`}
+			className={`toast ${styles.customToast} p-2 text-center ${!hide ? styles.showToast : ''} ${props.className ?? ''}`}
 		>
 			<div className="d-flex">
 				<div className="toast-body">

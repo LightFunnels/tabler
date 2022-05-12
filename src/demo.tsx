@@ -238,6 +238,18 @@ function App(){
 					</React.Fragment>
 				}
 			/>
+			<br/>
+			<Button 
+				className='mb-2' 
+				onClick={() => console.log('clicked')} 
+				type='primary' 
+				children={
+					<React.Fragment>
+						Im a button with Icon
+					</React.Fragment>
+				}
+				loading
+			/>
 			<Label children="Inputs:" />
 			<Input 
 				className="mb-2" 
