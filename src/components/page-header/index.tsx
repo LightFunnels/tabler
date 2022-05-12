@@ -31,7 +31,7 @@ export function PageHeader(props : Props) {
 						props.actions && (
 							<div className="col-12 col-md-auto ms-auto d-print-none">
 								<div className="btn-list">
-									<span className="d-sm-inline">
+									<span className="d-flex align-items-center">
 										{props.actions}
 									</span>
 								</div>
