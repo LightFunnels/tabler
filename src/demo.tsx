@@ -339,6 +339,7 @@ function App(){
 			/>
 			<Label children="Divider:" />
 			<Divider className="mb-3 mt-1" children="im a divider" />
+			<Divider className="mb-3 mt-1" />
 			<Label children="Spinner:" />
 			<Spinner className="mb-2" />
 			<br/>
