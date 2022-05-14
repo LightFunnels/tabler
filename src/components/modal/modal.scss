@@ -12,9 +12,10 @@
 }
 
 :local(.custom){
-	top: 35%;
+	top: 50%;
 	left: 0;
 	right: 0;
+	transform: translateY(-50%);
 	position: fixed;
 	z-index: 3;
 }

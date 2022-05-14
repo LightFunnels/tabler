@@ -5,7 +5,7 @@ type Props = {
 }
 
 export function Avatar({ firstName, className, ...props } : Props & React.ImgHTMLAttributes<HTMLImageElement>){
-	const name = firstName ? firstName.slice(0,2) : null
+	const name = firstName ? firstName.slice(0,1) : null
 
 	return firstName ? (
 			<span className={`avatar text-uppercase ${className ?? ''}`}>{name}</span>
