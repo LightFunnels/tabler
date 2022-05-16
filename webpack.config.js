@@ -131,6 +131,9 @@ module.exports = {
     ),
     new HtmlWebpackPlugin({
       template: "index.ejs",
+      chunks:[
+      	"demo"
+      ],
       templateParameters: {
         production: mode === "production",
       }

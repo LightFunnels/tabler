@@ -1,8 +1,3 @@
-declare namespace NodeJS {
-  interface ProcessEnv {
-    
-  }
-}
 
 declare module '*.scss' {
 	const content: Record<string, string>;
@@ -11,4 +6,5 @@ declare module '*.scss' {
 
 interface Window{
 	app: HTMLDivElement
+	modals: HTMLDivElement
 }

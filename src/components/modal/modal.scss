@@ -1,21 +1,16 @@
-:local(.open) {
-	position: fixed;
+:local(.overlay) {
+	position: absolute;
 	width: 100%;
   height: 100%; 
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.5);
-	z-index: 2; 
+  opacity: 0;
   cursor: pointer;
 }
 
-:local(.custom){
-	top: 50%;
-	left: 0;
-	right: 0;
-	transform: translateY(-50%);
-	position: fixed;
-	z-index: 3;
+:local(.modal){
+	&:local(.modal){
+		// force classname
+		display: block;
+	}
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './toast.scss';
+import {createPortal} from "react-dom";
 
 type Props = {
 	className?: string
@@ -9,31 +10,33 @@ type Props = {
 }
 
 export function Toast(props: Props) {
-	
-	const [hide, setHide] = React.useState(false);
 
 	React.useEffect(() => {
-		const timer = setTimeout(() => {
-			setHide(true)
-		}, props.timeout ?? 3000);
-		return () => clearTimeout(timer);
+		if(props.dismiss){
+			const timer = setTimeout(props.dismiss, props.timeout ?? 3000);
+			return () => clearTimeout(timer);
+		}
 	}, []);
 
-	return !hide ? (
-		<div
-			className={`toast ${styles.customToast} p-2 text-center ${!hide ? styles.showToast : ''} ${props.className ?? ''}`}
-		>
-			<div className="d-flex">
-				<div className="toast-body">
-					{props.message}
+	return (
+		createPortal(
+			<div
+				className={`toast ${styles.customToast} p-2 text-center ${styles.showToast} show ${props.className ?? ''}`}
+			>
+				<div className="d-flex">
+					<div className="toast-body">
+						{props.message}
+					</div>
+					{props.dismiss && (
+						<button 
+							className={`btn-close me-2 m-auto`} 
+							onClick={props.dismiss}
+						/>
+					)}
 				</div>
-				{props.dismiss && (
-					<button 
-						className={`btn-close me-2 m-auto`} 
-						onClick={props.dismiss}
-					/>
-				)}
-			</div>
-		</div>
-	) : null
+			</div>,
+			window.modals
+		)
+	);
+
 }

@@ -1,3 +1,5 @@
+import "@tabler/core/src/scss/tabler.scss"
+
 import {createRoot} from "react-dom/client";
 import React from "react";
 import {
@@ -37,8 +39,8 @@ function App(){
 	const [showModal, setShowModal] = React.useState(false);
 	const [show, setShow] = React.useState<'home' | 'profile' | 'contact'>('home');
 
-	const [target, setTarget] = React.useState<any>(undefined);
-	const [ref, showP] = usePopover({});
+	const target = React.useRef<HTMLDivElement>(null);
+	const [showTarget, setTarget] = React.useState<boolean>(false);
 	
 	return (
 		<div className='p-3'>
@@ -46,7 +48,7 @@ function App(){
 			<div className="d-flex mb-2">
 				{toast && (
 					<Toast 
-					// dismiss={() => toggleToast(false)} 
+					dismiss={() => toggleToast(false)} 
 					message={
 						<React.Fragment>
 							<div>this is a toast</div>
@@ -62,10 +64,10 @@ function App(){
 			</div>
 			<div>
 				<Label children="Tooltip:"/>
-				{showP && (
+				{showTarget && (
 					<StaticPopover
 						placement='right'
-						target={target}
+						target={target as React.MutableRefObject<HTMLDivElement>}
 						children={
 							<div>
 								Hello
@@ -74,12 +76,12 @@ function App(){
 					/>
 				)}
 				<div
-					ref={ref}
+					ref={target}
 					onMouseOver={e => {
-						setTarget({current: e.target})
+						setTarget(true)
 					}}
 					onMouseLeave={() => {
-						setTarget(undefined);
+						setTarget(false);
 					}}
 				>
 					Hover Me
@@ -99,7 +101,6 @@ function App(){
 			<Label className="mt-2" children="Modal:"/>
 			{showModal && (
 				<Modal 
-					modalState={showModal}
 					setModalState={setShowModal}
 					body={
 						<div>

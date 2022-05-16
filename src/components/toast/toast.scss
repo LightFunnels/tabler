@@ -2,14 +2,12 @@
   position: fixed; 
   left: 50%;
   bottom: 30px;
-  min-width: 250px;
-  margin-left: -125px; 
+  width: 250px;
+  transform: translateX(-50%);
   border-radius: 4px;
-  z-index: 1;
 }
 
 :local(.showToast) {
-  display: inline !important;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 	@-webkit-keyframes fadein {
