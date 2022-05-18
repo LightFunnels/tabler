@@ -23,7 +23,6 @@ import {
 	EmptyState,
 	Modal,
 	StaticPopover,
-	usePopover,
 	Tabs,
 	AvatarList
 } from "./components";
@@ -48,13 +47,13 @@ function App(){
 			<div className="d-flex mb-2">
 				{toast && (
 					<Toast 
-					dismiss={() => toggleToast(false)} 
-					message={
-						<React.Fragment>
-							<div>this is a toast</div>
-						</React.Fragment>
-					}
-				/>
+						dismiss={() => toggleToast(false)} 
+						message={
+							<React.Fragment>
+								<div>this is a toast</div>
+							</React.Fragment>
+						}
+					/>
 				)}
 				<Button 
 					className="ms-2" 
@@ -66,17 +65,18 @@ function App(){
 				<Label children="Tooltip:"/>
 				{showTarget && (
 					<StaticPopover
-						placement='right'
+						placement='bottom-start'
 						target={target as React.MutableRefObject<HTMLDivElement>}
 						children={
 							<div>
-								Hello
+								Hello my name is ism
 							</div>
 						}
 					/>
 				)}
 				<div
 					ref={target}
+					style={{width: 100}}
 					onMouseOver={e => {
 						setTarget(true)
 					}}
@@ -92,9 +92,9 @@ function App(){
 				label='Drop' 
 				children={
 					<React.Fragment>
-						<div className="dropdown-item"><i className="dropdown-item-icon ti ti-settings fs-2"/>Im a dropdown</div>
-						<div className="dropdown-item">Im a dropdown</div>
-						<div className="dropdown-item">Im a dropdown</div>
+						<div className="dropdown-item cursor-pointer"><i className="dropdown-item-icon ti ti-settings fs-2"/>Im a dropdown</div>
+						<div className="dropdown-item cursor-pointer">Im a dropdown</div>
+						<div className="dropdown-item cursor-pointer">Im a dropdown</div>
 					</React.Fragment>
 				} 
 			/>

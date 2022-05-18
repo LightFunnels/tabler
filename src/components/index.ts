@@ -17,6 +17,6 @@ export { Avatar } from "./avatar";
 export { PageHeader } from "./page-header";
 export { EmptyState } from "./empty-state";
 export { Modal } from "./modal";
-export { StaticPopover, usePopover } from "./tooltip";
+export { StaticPopover } from "./tooltip";
 export { Tabs } from "./tabs";
 export { AvatarList } from './avatar-list';

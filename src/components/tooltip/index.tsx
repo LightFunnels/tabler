@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './tooltip.scss';
 import {createPopper, Placement} from "@popperjs/core";
+import {createPortal} from 'react-dom';
 
 type StaticPopoverProps = {
 	target: React.MutableRefObject<HTMLElement>
@@ -22,7 +23,7 @@ export const StaticPopover = React.forwardRef(
 
 		React.useEffect(
 			function () {
-				const p = createPopper(target.current, refPopover.current!);
+				const p = createPopper(target.current, refPopover.current!, {modifiers: [{name: 'offset', options: { offset: [0, 10], }, },], placement: placement ?? 'bottom'},);
 				return () => {
 					p.destroy();
 				}
@@ -30,84 +31,15 @@ export const StaticPopover = React.forwardRef(
 			[]
 		);
 
-		return (
+		return createPortal(
 			<div
 				{...props}
-				className={styles.popover + ' ' + (className || '')}
+				className={`${styles.pop} ${className ?? ''}`}
 				ref={refPopover}
 			>
-				<div data-popper-arrow className={styles.arrow} ></div>
+				<div data-popper-arrow className='arr'></div>
 				{children}
 			</div>
-		)
+		, window.modals)
 	}
 )
-
-// type UsePopover = {disabled?: boolean, delay?: number, keepDelay?: number, ref?: React.MutableRefObject<HTMLDivElement|null>};
-// export function usePopover(opts: UsePopover = {disabled: false, delay: 0, keepDelay: 0, ref: undefined}): [React.MutableRefObject<any>, boolean] {
-
-// 	const targetRef = React.useRef<HTMLElement>();
-// 	const [show, setShow] = React.useState(false);
-// 	const ref = React.useRef<any>({});
-
-// 	React.useLayoutEffect(
-// 		function () {
-// 			if(opts.disabled){
-// 				return;
-// 			}
-// 			function mouseover(event) {
-// 				ref.current.status = 'over';
-// 				setTimeout(
-// 					function () {
-// 						if(ref.current.status !== 'left'){
-// 							setShow(true);
-// 						}
-// 					},
-// 					opts.delay || 0
-// 				);
-// 			}
-// 			function mouseleave(event) {
-// 				Promise.race([
-// 					opts.ref && opts.ref.current ?
-// 					new Promise(function(resolve){
-// 						opts.ref!.current!.addEventListener('mouseenter', function (){
-// 							resolve(true);
-// 						}, {once: true});
-// 					}) : Promise.resolve(false),
-// 					new Promise(function(resolve){
-// 						setTimeout(() => (resolve(false)), opts.keepDelay);
-// 					})
-// 				])
-// 				.then(
-// 					function(e){
-// 						function close(){
-// 							setShow(false);
-// 							ref.current.status = 'left';
-// 						}
-// 						if(e === true){
-// 							opts.ref!.current!.addEventListener('mouseleave', close, {once: true})
-// 						} else {
-// 							close();
-// 						}
-// 					}
-// 				);
-// 			}
-// 			if(!targetRef.current){
-// 				console.log('notify error');
-// 				return;
-// 			}
-// 			targetRef.current!.addEventListener('mouseover', mouseover);
-// 			targetRef.current!.addEventListener('mouseleave', mouseleave);
-// 			return () => {
-// 				// I still don't know why this is happening
-// 				if(targetRef.current){
-// 					targetRef.current!.removeEventListener('mouseover', mouseover);
-// 					targetRef.current!.removeEventListener('mouseleave', mouseleave);
-// 				}
-// 			}
-// 		},
-// 		[opts.disabled]
-// 	);
-
-// 	return [targetRef, show];
-// }

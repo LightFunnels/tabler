@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from "./tabs.scss";
 
 type Props = {
 	className?: string
@@ -11,7 +10,7 @@ type Props = {
 export function Tabs(props: Props) {
 	return (
 		<div className={`${props.card ? 'card' : ''} ${props.className ?? ''}`}>
-			<ul className={`nav ${styles.tabs}`}>
+			<ul className={`nav nav-tabs`}>
 				{props.tabs}
 			</ul>
 			{
