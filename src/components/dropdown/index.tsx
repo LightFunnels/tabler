@@ -3,7 +3,7 @@ import {createPopper, Placement} from "@popperjs/core";
 import {createPortal} from 'react-dom';
 
 type Props = {
-	label: string
+	label: React.ReactNode
 	link?: boolean
 	children: React.ReactNode
 }
@@ -47,7 +47,7 @@ export function Dropdown(props: Props) {
     <div className='dropdown'>
 			<a
 				ref={link}
-				className={`${props.link ? 'nav-link' : 'btn'} dropdown-toggle`} 
+				className={`${props.link ? 'nav-link' : 'btn'} dropdown-toggle w-full d-flex justify-content-between`} 
 				onClick={() => setIsOpen(true)}
 			>
 				{props.label}
@@ -59,7 +59,7 @@ export function Dropdown(props: Props) {
 	        		setIsOpen(false);
 	        	}}
 						ref={dropdown}
-						className={`dropdown-menu d-inline`}
+						className={`dropdown-menu d-inline w-25`}
 					>
 	          {props.children}
 	        </div>,
