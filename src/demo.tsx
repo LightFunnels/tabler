@@ -63,7 +63,59 @@ function App(){
 			</div>
 			<div>
 				<Label children="Tooltip:"/>
-				{showTarget && (
+				{/* {showTarget && (
+					<StaticPopover
+						placement='bottom-start'
+						target={target as React.MutableRefObject<HTMLDivElement>}
+						children={
+							<div>
+								Hello my name is ism
+							</div>
+						}
+					/>
+				)}
+				<div
+					ref={target}
+					style={{width: 100}}
+					onMouseOver={e => {
+						setTarget(true)
+					}}
+					onMouseLeave={() => {
+						setTarget(false);
+					}}
+				>
+					Hover Me
+				</div> */}
+			</div>
+			<Label children="Dropdown:"/>
+			<Dropdown			
+				label='Drop' 
+				children={
+					<React.Fragment>
+						<div className="dropdown-item cursor-pointer"><i className="dropdown-item-icon ti ti-settings fs-2"/>Im a dropdown</div>
+						<div className="dropdown-item cursor-pointer">Im a dropdown</div>
+						<div className="dropdown-item cursor-pointer">Im a dropdown</div>
+					</React.Fragment>
+				} 
+			/>
+			<Label className="mt-2" children="Modal:"/>
+			{showModal && (
+				<Modal 
+					setModalState={setShowModal}
+					body={
+						<div>
+							this is the body...
+							<Dropdown			
+								label='Drop' 
+								children={
+									<React.Fragment>
+										<div className="dropdown-item cursor-pointer"><i className="dropdown-item-icon ti ti-settings fs-2"/>Im a dropdown</div>
+										<div className="dropdown-item cursor-pointer">Im a dropdown</div>
+										<div className="dropdown-item cursor-pointer">Im a dropdown</div>
+									</React.Fragment>
+								} 
+							/>
+							{showTarget && (
 					<StaticPopover
 						placement='bottom-start'
 						target={target as React.MutableRefObject<HTMLDivElement>}
@@ -86,25 +138,6 @@ function App(){
 				>
 					Hover Me
 				</div>
-			</div>
-			<Label children="Dropdown:"/>
-			<Dropdown			
-				label='Drop' 
-				children={
-					<React.Fragment>
-						<div className="dropdown-item cursor-pointer"><i className="dropdown-item-icon ti ti-settings fs-2"/>Im a dropdown</div>
-						<div className="dropdown-item cursor-pointer">Im a dropdown</div>
-						<div className="dropdown-item cursor-pointer">Im a dropdown</div>
-					</React.Fragment>
-				} 
-			/>
-			<Label className="mt-2" children="Modal:"/>
-			{showModal && (
-				<Modal 
-					setModalState={setShowModal}
-					body={
-						<div>
-							this is the body...
 						</div>
 					} 
 					title="This is modal" 
