@@ -13,7 +13,7 @@ type Props = {
 export function Modal(props : Props) {
 	return createPortal(
 		<React.Fragment>
-			<div className={`modal modal-blur fade show ${styles.modal}`}>
+			<div className={`modal ${styles.modal}`} id="modal-simple">
 				<div className={styles.overlay} onClick={() => props.setModalState(false)} />
 				<div className={`modal-dialog modal-dialog-centered`}>
 					<div className="modal-content">

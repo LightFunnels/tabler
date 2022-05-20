@@ -1,11 +1,12 @@
 import React from 'react';
-import {createPopper, Placement} from "@popperjs/core";
-import {createPortal} from 'react-dom';
+import { createPopper, Placement } from "@popperjs/core";
+import { createPortal } from 'react-dom';
 
 type Props = {
-	label: string
+	label: React.ReactNode
 	link?: boolean
 	children: React.ReactNode
+	onScroll?: (e: React.FormEvent<HTMLDivElement>) => void
 }
 
 export function Dropdown(props: Props) {
@@ -14,8 +15,8 @@ export function Dropdown(props: Props) {
 	const link = React.useRef<HTMLAnchorElement>(null);
 
 	React.useLayoutEffect(() => {
-		if(isOpen){
-			function clickOut(event){
+		if (isOpen) {
+			function clickOut(event) {
 				setIsOpen(false);
 			}
 			setTimeout(() => {
@@ -26,12 +27,12 @@ export function Dropdown(props: Props) {
 				dropdown.current!,
 				{
 					placement: "bottom-end",
-					modifiers:[
+					modifiers: [
 						{
 							name: 'offset',
-				      options: {
-				        offset: [0, 10],
-				      }
+							options: {
+								offset: [0, 10],
+							}
 						}
 					]
 				}
@@ -43,29 +44,30 @@ export function Dropdown(props: Props) {
 		}
 	}, [isOpen]);
 
-  return (
-    <div className='dropdown'>
+	return (
+		<div className='dropdown' >
 			<a
 				ref={link}
-				className={`${props.link ? 'nav-link' : 'btn'} dropdown-toggle`} 
+				className={`${props.link ? 'nav-link' : 'btn'} dropdown-toggle w-full d-flex justify-content-between`}
 				onClick={() => setIsOpen(true)}
 			>
 				{props.label}
 			</a>
-      {
-      	isOpen && createPortal(
-	        <div
-	        	onClick={() => {
-	        		setIsOpen(false);
-	        	}}
+			{
+				isOpen && createPortal(
+					<div onScroll={props.onScroll}
+
+						onClick={() => {
+							setIsOpen(false);
+						}}
 						ref={dropdown}
-						className={`dropdown-menu d-inline`}
+						className={`dropdown-menu d-inline w-25`}
 					>
-	          {props.children}
-	        </div>,
-	        window.modals
-	      )
-      }
-    </div>
-  );
+						{props.children}
+					</div>,
+					window.modals
+				)
+			}
+		</div>
+	);
 };
