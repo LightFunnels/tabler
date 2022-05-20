@@ -48,7 +48,7 @@ export function Dropdown(props: Props) {
 		<div className='dropdown' >
 			<a
 				ref={link}
-				className={`${props.link ? 'nav-link' : 'btn'} dropdown-toggle w-full d-flex justify-content-between`}
+				className={`${props.link ? 'nav-link' : 'btn'} dropdown-toggle`}
 				onClick={() => setIsOpen(true)}
 			>
 				{props.label}
@@ -61,7 +61,7 @@ export function Dropdown(props: Props) {
 							setIsOpen(false);
 						}}
 						ref={dropdown}
-						className={`dropdown-menu d-inline w-25`}
+						className={`dropdown-menu d-inline`}
 					>
 						{props.children}
 					</div>,
