@@ -1,0 +1,56 @@
+.dropdown-menu{
+	width: 100%;
+	display: block;
+	// left: 0;
+	// top: calc(100% + 10px);
+}
+
+.slect-wrapper{
+	width: 100%;
+	z-index: 1;
+}
+
+.select-input-search {
+	border: none;
+	display: block;
+	width: 100%;
+	padding: 6px;
+	position: sticky;
+	outline: none;
+	top: 0;
+	
+}
+
+.form-select{
+	position: relative;
+	&.cancellable{
+		.x-icon{
+			position: absolute;
+			right: 36px;
+			top: 50%;
+			font-size: 20px;
+			margin-top: -10px;
+		}
+		padding-right: 56px;
+	}
+}
+
+.ts-control{
+
+}
+
+.ts-control, .dropdown-item {
+	cursor: pointer;
+}
+
+.ts-dropdown-content{
+	flex-grow: 1;
+	overflow: auto;
+}
+
+.lf-list{
+	max-height: 200px;
+	padding-top: 0;
+	display: flex;
+	flex-direction: column;
+}

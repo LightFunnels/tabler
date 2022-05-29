@@ -45,7 +45,7 @@ export function Dropdown(props: Props) {
 	}, [isOpen]);
 
 	return (
-		<div className='dropdown' >
+		<div className='dropdown'>
 			<a
 				ref={link}
 				className={`${props.link ? 'nav-link' : 'btn'} dropdown-toggle w-full d-flex justify-content-between`}
@@ -66,7 +66,7 @@ export function Dropdown(props: Props) {
 						{props.children}
 					</div>,
 					window.modals
-				)
+				) as JSX.Element
 			}
 		</div>
 	);
