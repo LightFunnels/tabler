@@ -285,7 +285,8 @@ function App(){
 				loading
 			/>
 			<Label children="Inputs:" />
-			<Input 
+			<Input
+				error='this is invalid' 
 				className="mb-2" 
 				value={state} 
 				onChange={(e) => setState(e.target.value)} 
@@ -313,6 +314,7 @@ function App(){
 			/>
 			<Label children="Select:" />
 			<Select 
+				error='This is not good'
 				className="mb-3" 
 				options={
 					[
