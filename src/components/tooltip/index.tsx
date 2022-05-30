@@ -1,24 +1,25 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import styles from './tooltip.scss';
 import {createPopper, Placement} from "@popperjs/core";
 import {createPortal} from 'react-dom';
 
 type StaticPopoverProps = {
-	target: React.MutableRefObject<HTMLElement>
+	target: React.MutableRefObject<HTMLDivElement>
 	placement?: Placement
 	className?: string
 	children: React.ReactNode
 }
 
-export const StaticPopover = React.forwardRef(
- function ({
-		target,
-		placement,
-		className,
-		children,
-		...props
-	}: StaticPopoverProps, ref: React.MutableRefObject<HTMLElement>|null) {
+export const StaticPopover = React.forwardRef<HTMLDivElement, StaticPopoverProps>(
+	function (_props, ref) {
 
+ 		const {
+			target,
+			placement,
+			className,
+			children,
+			...props
+		} = _props;
 		let refPopover = React.useRef<HTMLDivElement>(null);
 
 		React.useEffect(
@@ -39,7 +40,9 @@ export const StaticPopover = React.forwardRef(
 			>
 				<div data-popper-arrow className='arr'></div>
 				{children}
-			</div>
-		, window.modals)
+			</div>,
+			window.modals
+		) as JSX.Element;
+
 	}
 )
