@@ -2,7 +2,7 @@ import React from 'react';
 
 type Props = {
 	title: string
-	actions: React.ReactNode
+	actions?: React.ReactNode
 	subHeader?: React.ReactNode 
 	breadcrumbs?: React.ReactNode
 }
@@ -20,12 +20,12 @@ export function PageHeader(props : Props) {
 						)
 					}
 					<div className="col">
-						<h1 className="page-title">{props.title}</h1>
 						{
 							props.subHeader && (
 								<div className="page-pretitle">{props.subHeader}</div>
 							)
 						}
+						<h1 className="page-title">{props.title}</h1>
 					</div>
 					{
 						props.actions && (

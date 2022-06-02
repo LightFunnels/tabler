@@ -101,6 +101,7 @@ function App(){
 			<Label className="mt-2" children="Modal:"/>
 			{showModal && (
 				<Modal 
+					modalState={false}
 					setModalState={setShowModal}
 					body={
 						<div>
@@ -340,7 +341,7 @@ function App(){
 			/>
 			<Label children="Divider:" />
 			<Divider className="mb-3 mt-1" children="im a divider" />
-			<Divider className="mb-3 mt-1" />
+			<Divider className="mb-3 mt-1" children={""} />
 			<Label children="Spinner:" />
 			<Spinner className="mb-2" />
 			<br/>
