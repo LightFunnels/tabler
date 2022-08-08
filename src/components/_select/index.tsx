@@ -3,7 +3,8 @@ import React from 'react';
 export type Option = {label: React.ReactNode, value: string};
 
 type Props = {
-	options: Option[]
+	options: readonly Option []
+	value: string | null
 }
 
 export function Select({className, options, ...props}: Props & React.InputHTMLAttributes<HTMLSelectElement>){
