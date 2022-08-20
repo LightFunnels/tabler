@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './form.scss';
-import { createPopper, Instance } from '@popperjs/core';
-import type { PopperOptions } from 'popper.js';
+import { createPopper, Instance, Placement } from '@popperjs/core';
 type Props = {
 	label?: React.ReactNode
 	light?: boolean
@@ -30,14 +29,11 @@ export function Label({light, ...props}: LabelProps) {
 	return <label {...props} className={styles.label + ' ' + (props.className || '') + ' ' + (light ? 'light' : '')} />;
 }
 
-
-
-
 export type UseToggleOpts = {
 	state?: boolean
 	key?: any
 	disabled?: boolean
-	placement?: PopperOptions["placement"]
+	placement?: Placement
 }
 type UseToggle4Return = [
 	React.MutableRefObject<HTMLDivElement>,

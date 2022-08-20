@@ -1,92 +1,77 @@
-import React, {Fragment} from 'react';
-import lodash from 'lodash';
-import styles from './date-picker.scss';
-import dateformat from 'dateformat';
+import React, { Fragment } from "react";
 import ReactDatePicker from "react-datepicker";
-import { Select } from '../_select';
-import { FormGroup, useToggle } from '../form';
-import { Button } from '../button';
-import { Checkbox } from '../checkbox';
-import {IconChevronLeft, IconChevronRight, IconCalendarEvent} from "@tabler/icons";
+import lodash from 'lodash';
+import dateformat from 'dateformat'
+import styles from "./date-picker.scss";
+import {createPortal} from "react-dom";
+import {
+	Select,
+	Button,
+	// InputComponent,
+	useToggle,
+} from '..'
+// import {
+// 	ErrorView,
+// } from '../index'
 
-type DateFilterProps = {
-	state: StateType;
-	onChange: (path: string[], data: any) => void;
-	offCard?: boolean;
-	noCustom?: boolean;
-	hasCompare?: boolean;
-	// className?: string;
-};
+const frmt = 'yyyy-mm-dd HH:MM:ss';
 
-export type StateType = {
-	compare_type: string|null
-	range: {startDate: string; endDate: string;}
-}
-export function DateFilter(props: DateFilterProps) {
-	const [open, setOpen] = React.useState(false);
+// we must validate the given property, it must match the given format
+// type Props = {
+// 	onChange: (a: string | null) => void
+// 	name?
+// 	value: string | null
+// 	error?: string
+// 	displayFormat?: string
+// 	popperPlacement?: string
+// 	isClearable?: boolean
+// 	maxDate?: Date
+// 	minDate?: Date
+// }
+// export function DatePickerComponent({ name, error, value, ...props }: Props) {
+// 	const selected = React.useMemo(() => (value ? new Date(SafeDate(value)) : null), [value]);
+// 	return (
+// 		<div className={styles.datePicker}>
+// 			<ReactDatePicker
+// 				{...props}
+// 				customInput={<DatePickerInput displayformat={props.displayFormat} onChange={lodash.noop} value={""} />}
+// 				selected={selected}
+// 				renderCustomHeader={
+// 					function (e) {
+// 						return (
+// 							<div className="react-datepicker__current-month" >
+// 								<i
+// 									className="navigationIcon left icon-arrow-left1"
+// 									onClick={e.decreaseMonth}
+// 								/>
+// 								<span className="label">
+// 									{dateformat(SafeDate(e.date), `mmmm yyyy`)}
+// 								</span>
+// 								<i
+// 									className="navigationIcon right icon-arrow-right1"
+// 									onClick={e.increaseMonth}
+// 								/>
+// 							</div>
+// 						)
+// 					}
+// 				}
+// 				onChange={
+// 					function (value) {
+// 						if (value) {
+// 							value.setHours(0, 0, 0, 0);
+// 							props.onChange(format(value));
+// 						} else {
+// 							props.onChange(null);
+// 						}
+// 					}
+// 				}
+// 			/>
+// 			<ErrorView error={error} />
+// 		</div>
+// 	);
+// }
 
-	const [ref, refMenu, isOpen, setIsOpen] = useToggle({ placement: 'bottom-end', disabled: open});
-
-	const DateFilter = (
-		<RangeDatePicker
-			value={props.state.range}
-			onChange={range => {
-				props.onChange(
-					[],
-					{
-						...props.state,
-						range
-					}
-				);
-				setIsOpen(false);
-				setOpen(false);
-			}}
-			onCancel={
-				() => {
-					setIsOpen(false)
-					setOpen(false)
-				}
-			}
-		/>
-	)
-
-	return (
-		<Fragment>
-			<div
-			 className={`${styles.dateFilterTogglerContainer} ${props.offCard ? 'offCard' : ''}`}
-				onClick={
-				 () => {
-						if(window.innerWidth < 425){
-							setOpen(true)
-						}
-				 	}
-				} 
-			>
-				<div ref={ref} className={`${styles.dateFilterToggler}`}>
-					<IconCalendarEvent />
-					<span><RangeDateLabel startDate={props.state.range.startDate} endDate={props.state.range.endDate} /></span>
-				</div>
-			</div>
-			{
-				isOpen ? (
-					<div
-						className={styles.dashboardDateMenu}
-						ref={refMenu}
-						onClick={
-							function (event) {
-								event.nativeEvent.canceler = (event.nativeEvent.canceler??[]).concat(refMenu.current);
-							}
-						}
-					>
-						{DateFilter}
-					</div>
-				) : null
-			}
-		</Fragment>
-	)
-}
-
-type RangeDatePicker = {
+type RangeDatePickerComponentProps = {
 	value:{
 		startDate: string|null
 		endDate: string|null
@@ -94,10 +79,9 @@ type RangeDatePicker = {
 	append?: React.ReactNode
 	onCancel: () => void
 	disabled?: boolean
-	onChange: (val: RangeDatePicker["value"]) => void
+	onChange: (val: RangeDatePickerComponentProps["value"]) => void
 }
-
-export function RangeDatePicker(props: RangeDatePicker) {
+export function RangeDatePickerComponent(props: RangeDatePickerComponentProps) {
 
 	const [tempvalue, tempChange] = React.useState(props.value);
 	const today = React.useMemo(() => new Date(), []);
@@ -118,7 +102,7 @@ export function RangeDatePicker(props: RangeDatePicker) {
 			if (!tempvalue.endDate)
 				return null;
 			let d = new Date(SafeDate(tempvalue.endDate));
-			d.setHours(0, 0, 0, 0);
+			d.setHours(23, 59, 59, 0);
 			return d;
 		},
 		[tempvalue.endDate]
@@ -142,32 +126,49 @@ export function RangeDatePicker(props: RangeDatePicker) {
 	);
 
 	function onDatePickerChange(date: Date) {
-		let newValue: RangeDatePicker["value"];
-		date.setHours(0, 0, 0, 0);
-		if (endDate || !startDate || (tempvalue.startDate && (new Date(SafeDate(tempvalue.startDate)).getTime() > date.getTime()))) {
-			newValue = ({
-				...tempvalue,
+		let newValue: RangeDatePickerComponentProps["value"];
+		// console.log(startDate)
+		// if(!startDate){
+		// 	date.setHours(0, 0, 0, 0);
+		// } else {
+		// 	date.setHours(23, 59, 59, 0);
+		// }
+		if (
+			endDate ||
+			!startDate ||
+			// or the user selected earlier value than the pre selected start date
+			(
+				tempvalue.startDate &&
+				(new Date(SafeDate(tempvalue.startDate)).getTime() > date.getTime())
+			)
+		) {
+			date.setHours(0, 0, 0, 0);
+			newValue = {
 				endDate: null,
 				startDate: format(date)
-			});
+			};
 		} else {
 			setEndDateHover(null);
-			newValue = ({
-				...tempvalue,
+			date.setHours(23, 59, 59, 0);
+			newValue = {
+				startDate: tempvalue.startDate,
 				endDate: format(date),
-			});
+			};
 		}
-		console.log("changeeed")
 		tempChange(newValue);
 	}
 
-	function dayClassName(now) {
+	function dayClassName(_day) {
 
-		now.setHours(0, 0, 0, 0);
+		let dayStart = new Date(_day);
+		dayStart.setHours(0, 0, 0, 0);
+		let dayEnd = new Date(dayStart);
+		dayEnd.setHours(23, 59, 59, 0);
 
-		let stringNow = dateformat(SafeDate(now), 'yyyy-mm-dd HH:MM:ss');
-		let className = `day-${dateformat(SafeDate(now), 'yyyy-mm-dd')} `;
-		let nowTime = now.getTime();
+		let stringNow = dateformat(SafeDate(dayStart), 'yyyy-mm-dd HH:MM:ss');
+		let stringEnd = dateformat(SafeDate(dayEnd), 'yyyy-mm-dd HH:MM:ss');
+		let className = `day-${dateformat(SafeDate(dayStart), 'yyyy-mm-dd')} `;
+		let nowTime = dayStart.getTime();
 
 		if (
 			endDateHover && ((nowTime <= endDateHover) && (nowTime >= startDate!.getTime()))
@@ -175,12 +176,12 @@ export function RangeDatePicker(props: RangeDatePicker) {
 			className += ' react-datepicker__day--in-selecting-range ';
 		}
 
-		if (dateformat
+		if (
 			(stringNow === tempvalue.startDate) ||
-			(stringNow === tempvalue.endDate)
+			(stringEnd === tempvalue.endDate)
 		) {
 			className += " edgeRange ";
-		} else if ((now > (startDate as Date)) && (now < (endDate as Date))) {
+		} else if ((dayStart > (startDate as Date)) && (dayStart < (endDate as Date))) {
 			className += " react-datepicker__day--in-range";
 		}
 		return className;
@@ -226,7 +227,7 @@ export function RangeDatePicker(props: RangeDatePicker) {
 									R.current.left = e;
 									return (
 										<div className="react-datepicker__current-month" >
-											<IconChevronLeft
+											<i
 												className={"navigationIcon left icon-arrow-left1 " + (e.prevMonthButtonDisabled ? 'disabled' : '') }
 												onClick={
 													function () {
@@ -265,15 +266,6 @@ export function RangeDatePicker(props: RangeDatePicker) {
 													}
 												}
 											/>
-											<IconChevronRight
-												className={"navigationIcon right icon-arrow-right1 " + (e.nextMonthButtonDisabled ? 'disabled' : '')}
-												onClick={
-													function () {
-														R.current.left.increaseMonth();
-														e.increaseMonth();
-													}
-												}
-											/>
 										</div>
 									)
 								}
@@ -288,14 +280,15 @@ export function RangeDatePicker(props: RangeDatePicker) {
 				{
 					window.innerWidth < 425 ? (
 						<Select
+						  // label='Select a date'
 							options={types}
 							value={types[0].label}
 							onChange={
-								function (value) {
-									/* let val = generateFromValue(value);
+								function (event) {
+									let val = generateFromValue(event.target.value as any);
 									if(val){
 										tempChange(val);
-									} */
+									}
 								}
 							}
 						/>
@@ -310,6 +303,7 @@ export function RangeDatePicker(props: RangeDatePicker) {
 											let val = generateFromValue(item.value);
 											if(val){
 												tempChange(val);
+												props.onChange(val);
 											}
 										}}
 									>
@@ -322,31 +316,102 @@ export function RangeDatePicker(props: RangeDatePicker) {
 				}
 			</div>
 			<div className="footer">
-					<Button
-						children="Cancel"
-						onClick={
-							props.onCancel
-						}
-					/>
-					<Button
-						children="Apply"
-						type="primary"
-						disabled={props.disabled && lodash.isEqual(tempvalue, props.value)}
-						onClick={
-							function () {
-								props.onChange(tempvalue);
+				<Button
+					children="Cancel"
+					onClick={
+						props.onCancel
+					}
+				/>
+				<Button
+					children="Apply"
+					type="primary"
+					disabled={props.disabled && lodash.isEqual(tempvalue, props.value)}
+					onClick={
+						function () {
+							let val = tempvalue;
+							if(!tempvalue.endDate){
+								let end = new Date(SafeDate(tempvalue.startDate!));
+								end.setHours(23,59,59,0)
+								val = {
+									...tempvalue,
+									endDate: format(end)
+								};
 							}
+							props.onChange(val);
 						}
-					/>
+					}
+				/>
 			</div>
 		</div>
 	)
 }
-const RangeDateLabel = React.memo<{startDate: string|null, endDate: string|null}>(
+
+export type RangeDatePickerProps = {
+	value:{
+		startDate: string|null
+		endDate: string|null
+	}
+	onChange: (val: RangeDatePickerProps["value"]) => void
+	cancellable?: boolean
+}
+export function RangeDatePicker(props: RangeDatePickerProps) {
+	const [ref, refMenu, isOpen, setIsOpen] = useToggle({placement: "bottom-start"});
+	return (
+		<Fragment>
+			<div ref={ref} className={`${styles.rangeDatePickerLabel} ${isOpen && 'active'}`}>
+				<div className="date-container">
+					<i className="icon icon-calendar"/>
+					<span className={"value"}><RangeDateLabel startDate={props.value.startDate} endDate={props.value.endDate} /></span>
+					{
+						props.cancellable &&
+						( props.value.startDate || props.value.endDate ) &&
+						<i
+							className="icon icon-cancel-music"
+							onClick={ev => {
+								setIsOpen(false);
+								props.onChange({
+									startDate: null,
+									endDate: null
+								});
+							}}
+						/>
+					}
+				</div>
+			</div>
+			{
+				isOpen && (
+					createPortal(
+						<div
+							className={styles.rangeDatePickerMenu}
+							ref={refMenu}
+							onClick={
+								function (event: any) {
+									event.nativeEvent.canceler = (event.nativeEvent.canceler??[]).concat(refMenu.current);
+								}
+							}
+						>
+							<RangeDatePickerComponent
+								value={props.value}
+								onChange={val => {
+									props.onChange(val);
+									setIsOpen(false);
+								}}
+								onCancel={() => {
+									setIsOpen(false);
+								}}
+							/>
+						</div>,
+						window.modals
+					)
+				)
+			}
+		</Fragment>
+	)
+}
+
+export const RangeDateLabel = React.memo<{startDate: string|null, endDate: string|null}>(
 	function RangeDateLabel(props) {
 		let {startDate, endDate} = props;
-		let s = (startDate && new Date(SafeDate(startDate))) as Date,
-				e = (endDate && new Date(SafeDate(endDate))) as Date;
 		if(!startDate && !endDate){
 			return null;
 		}
@@ -359,102 +424,112 @@ const RangeDateLabel = React.memo<{startDate: string|null, endDate: string|null}
 				</Fragment>
 			)
 		}
+		let format = formatRangeDate(startDate, endDate);
 		return (
 			<Fragment>
 				{
-					(startDate === endDate) ?
-						dateformat(SafeDate(startDate), 'dd mmm yyyy') :
-						(
-							dateformat(SafeDate(startDate), 'dd mmm' + (s!.getFullYear() === e!.getFullYear() ? '' : ', yy')) +
-							' - ' +
-							dateformat(SafeDate(endDate), 'dd mmm' + (s!.getFullYear() === e!.getFullYear() ? '' : ', yy'))
-						)
+					format && (
+						<Fragment>
+							{dateformat( SafeDate(startDate), format )}
+							{" "}-{" "}
+						</Fragment>
+					)
 				}
+				{dateformat(SafeDate(endDate), 'dd mmm yyyy')}
 			</Fragment>
 		)
 	},
 	(p, np) => ( (p.startDate === np.startDate) && (p.endDate === np.endDate) )
 );
 
-
-function SafeDate(v) {
-  return (typeof v === 'string') ? v.replace(/-/g, "/") : v;
-}
-function format(date: Date): string {
-	return dateformat(SafeDate(date), `yyyy-mm-dd HH:MM:ss`);
-}
 function generateFromValue(value: typeof types[number]["value"]){
 	let now = new Date();
 	now.setHours(0, 0, 0, 0);
 	switch(value){
 		case 'today':{
-			let _now = dateformat(now, 'yyyy-mm-dd HH:MM:ss');
+			let _now = dateformat(now, frmt);
+			let end = new Date(now);
+			end.setHours(23, 59, 59, 0);
 			return {
 				startDate: _now,
-				endDate: _now,
+				endDate: dateformat(end, frmt),
 			};
 			break;
 		}
 		case 'yesterday':{
 			now.setDate(now.getDate() - 1);
-			let _now = dateformat(now, 'yyyy-mm-dd HH:MM:ss');
+			let _now = dateformat(now, frmt);
+			let end = new Date(now)
+			end.setHours(23, 59, 59, 0);
 			return {
 				startDate: _now,
-				endDate: _now
+				endDate: dateformat(end, frmt)
 			};
 			break;
 		}
 		case  'lastSeven':{
 			let start = new Date(now);
 			start.setDate(start.getDate() - 6);
+			let end = new Date(now);
+			end.setHours(23, 59, 59, 0);
 			return {
-				startDate: dateformat(start, 'yyyy-mm-dd HH:MM:ss'),
-				endDate: dateformat(now, 'yyyy-mm-dd HH:MM:ss'),
+				startDate: dateformat(start, frmt),
+				endDate: dateformat(end, frmt),
 			};
 			break;
 		}
 		case  'fourteen':{
-			let start = new Date(SafeDate(now));
-			start.setDate(start.getDate() - 13)
+			let start = new Date(now);
+			start.setDate(start.getDate() - 13);
+			let end = new Date(now);
+			end.setHours(23, 59, 59, 0);
 			return {
-				startDate: dateformat(start, 'yyyy-mm-dd HH:MM:ss'),
-				endDate: dateformat(now, 'yyyy-mm-dd HH:MM:ss'),
+				startDate: dateformat(start, frmt),
+				endDate: dateformat(end, frmt),
 			}
 			break;
 		}
 		case  'lastThiry':{
 			let start = new Date(SafeDate(now));
-			start.setDate(start.getDate() - 29)
+			start.setDate(start.getDate() - 29);
+			let end = new Date(now);
+			end.setHours(23, 59, 59, 0);
 			return {
-				startDate: dateformat(start, 'yyyy-mm-dd HH:MM:ss'),
-				endDate: dateformat(now, 'yyyy-mm-dd HH:MM:ss'),
+				startDate: dateformat(start, frmt),
+				endDate: dateformat(end, frmt),
 			}
 			break;
 		}
 		case  'lastSixty':{
 			let start = new Date(SafeDate(now));
 			start.setDate(start.getDate() - 59)
+			let end = new Date(now);
+			end.setHours(23, 59, 59, 0);
 			return {
-				startDate: dateformat(start, 'yyyy-mm-dd HH:MM:ss'),
-				endDate: dateformat(now, 'yyyy-mm-dd HH:MM:ss'),
+				startDate: dateformat(start, frmt),
+				endDate: dateformat(end, frmt),
 			}
 			break;
 		}
 		case  'lastNinety':{
 			let start = new Date(SafeDate(now));
 			start.setDate(start.getDate() - 89)
+			let end = new Date(now);
+			end.setHours(23, 59, 59, 0);
 			return {
-				startDate: dateformat(start, 'yyyy-mm-dd HH:MM:ss'),
-				endDate: dateformat(now, 'yyyy-mm-dd HH:MM:ss'),
+				startDate: dateformat(start, frmt),
+				endDate: dateformat(end, frmt),
 			}
 			break;
 		}
 		case  'lastOneEighty':{
 			let start = new Date(SafeDate(now));
 			start.setDate(start.getDate() - 179)
+			let end = new Date(now);
+			end.setHours(23, 59, 59, 0);
 			return {
-				startDate: dateformat(start, 'yyyy-mm-dd HH:MM:ss'),
-				endDate: dateformat(now, 'yyyy-mm-dd HH:MM:ss'),
+				startDate: dateformat(start, frmt),
+				endDate: dateformat(end, frmt),
 			}
 			break;
 		}
@@ -463,32 +538,75 @@ function generateFromValue(value: typeof types[number]["value"]){
 			start.setHours(0, 0, 0, 0);
 			start.setFullYear(start.getFullYear() - 1);
 			start.setMonth(0,1);
-			
 			let end = new Date();
 			end.setMonth(0,1);
-			end.setHours(0, 0, 0, 0);
+			end.setHours(23, 59, 59, 0);
 			end.setDate(0);
-
 			return {
-				startDate: dateformat(start, 'yyyy-mm-dd HH:MM:ss'),
-				endDate: dateformat(end, 'yyyy-mm-dd HH:MM:ss'),
+				startDate: dateformat(start, frmt),
+				endDate: dateformat(end, frmt),
 			};
 			break;
 		}
 	}
 }
 
-const content = {
-	today: 'Today',
-	yesterday: 'Yesterday',
-	lastSeven: 'Last 7 days',
-	lastThiry: 'Last 30 days',
-	lastNinety: 'Last 90 days',
-	lastYear: 'Last year',
-	previousPeriod: 'Previous period',
-	compareToPrev: 'Compare to date',
-	compareTolabel: 'Compare to',
+export function formatRangeDate(startDate, endDate){
+	let comareFormat = 'dd mmm, yyyy';
+		let start = new Date(SafeDate(startDate)), end = new Date(SafeDate(endDate));
+		if(start.getFullYear() === end.getFullYear()){
+			comareFormat = 'dd mmm';
+			if(start.getMonth() === end.getMonth()){
+				comareFormat = "dd";
+				if(start.getDate() === end.getDate()){
+					comareFormat = "";
+				}
+			}
+		}
+	return comareFormat;
 }
+
+// const DatePickerInput = React.forwardRef<HTMLDivElement, { onChange, value: string | null, displayformat?: string }>(
+// 	function (props, ref) {
+// 		return (
+// 			<InputComponent
+// 				{...props}
+// 				className={styles.dateInput}
+// 				ref={ref}
+// 				value={
+// 					props.value ?
+// 						dateformat(SafeDate(props.value), props.displayformat) :
+// 						props.value
+// 				}
+// 				readOnly
+// 				type="text"
+// 				leftIcon={<i className="icon-calendar" />}
+// 			/>
+// 		)
+// 	}
+// );
+
+// DatePickerComponent.defaultProps = {
+// 	// valueFormat:'yyyy-mm-dd HH:MM:ss',
+// 	// valueFormat:'yyyy-mm-dd',
+// 	displayFormat: 'yyyy-mm-dd',
+// }
+
+RangeDatePickerComponent.defaultProps = {
+	// valueFormat:'yyyy-mm-dd HH:MM:ss',
+	// valueFormat:'yyyy-mm-dd',
+	disabled: true,
+}
+
+const content = {
+  today: 'Today',
+  yesterday: 'Yesterday',
+  lastSeven: 'Last 7 days',
+  lastThiry: 'Last 30 days',
+  lastNinety: 'Last 90 days',
+  lastYear: 'Last year',
+};
+
 export const types = [
 	{
 		label: content.today,
@@ -528,14 +646,10 @@ export const types = [
 	},
 ] as const;
 
-export const compare_to_options = [
-	{
-		label: content.previousPeriod,
-		value: 'previous_period',
-	},
-	{
-		label: content.lastYear,
-		value: 'last_year',
-	},
-];
+function format(date: Date): string {
+	return dateformat(SafeDate(date), `yyyy-mm-dd HH:MM:ss`);
+}
 
+export function SafeDate(v) {
+  return (typeof v === 'string') ? v.replace(/-/g, "/") : v;
+}
