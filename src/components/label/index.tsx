@@ -2,7 +2,7 @@ import React from 'react';
 
 type Props = {
 	className?: string
-	children: string
+	children: string | JSX.Element
 }
 
 export function Label(props: Props){
