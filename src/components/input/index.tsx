@@ -4,6 +4,7 @@ type Props = {
 	loading?: boolean
 	rightIcon?: React.ReactNode
 	leftIcon?: React.ReactNode
+	inputCustom?: string
 }
 
 export function Input({className, loading, type, rightIcon, leftIcon, ...props} : Props & React.InputHTMLAttributes<HTMLInputElement>){
@@ -26,7 +27,7 @@ export function Input({className, loading, type, rightIcon, leftIcon, ...props} 
 			{
 				<input 
 					{...props}
-					className={'form-control'}
+					className={`form-control ${props.inputCustom ?? ''}`}
 					type={type}
 				/>
 			}
