@@ -1,13 +1,15 @@
 $white: #fff;
+$light-grey: #fafafa;
 $border-color-tr: #D3DAE4;
 $box-shadow-1: 0px 0px 15px rgba(32, 32, 35, 0.08);
+$box-shadow-2: 0px 2px 20px rgba(32, 32, 35, 0.13);
+$box-shadow-3: 0px 1px 4px rgb(9 39 83 / 12%);
 $accent-blue: #0085FF;
 $grey-35: #7B8DA3;
 $grey-27: #191E24;
 $grey-20: #ABB6C4;
 $grey-24: #191E24;
 $grey-19: #F8F8F8;
-$box-shadow-2: 0px 2px 20px rgba(32, 32, 35, 0.13);
 $modal-border-radius: 6px;
 $grey-10: #D9DFE8;
 $grey-27: #191E24;
@@ -262,9 +264,6 @@ $dark-1: $grey-27;
 
 
 :local(.rangeDatePickerLabel){
-  // display: inline-block;
-  // border: 1px solid;
-  // composes: textInputWrapper from "../input/input.scss";
   padding: 0 10px;
   display: flex;
   align-items: center;
@@ -274,26 +273,28 @@ $dark-1: $grey-27;
   border: 1px solid $border-color-tr;
   color: $grey-27;
   font-size: 14px;
+  background-color: $white;
+  cursor: pointer;
+  box-shadow: $box-shadow-3;
+  transition: .1s;
+  &:hover{
+    background-color: $light-grey;
+  }
   .date-container {
   	width: 100%;
     display: flex;
     align-items: center;
     .value{
+      display: flex;
+      align-items: center;
     	flex-grow: 1;
+      gap: 0 5px;
+      .icon-calendar{
+        stroke-width: 1.5;
+        stroke:  $grey-27;
+      }
     }
   }
-  .icon{
-    color: $grey-1;
-    font-size: 18px;
-    margin-right: 6px;
-  }
-  &.active{
-    border-color: $blue-border-selected-step;
-    box-shadow: 0 0 0 1px $blue-border-selected-step;
-    .icon-calendar{
-      color: $blue-border-selected-step;  
-    }
-  }  
 }
 
 :local(.rangeDatePickerMenu){

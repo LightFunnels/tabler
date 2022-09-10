@@ -13,7 +13,7 @@ import {
 // import {
 // 	ErrorView,
 // } from '../index'
-
+import {IconCalendarEvent} from "@tabler/icons";
 const frmt = 'yyyy-mm-dd HH:MM:ss';
 
 // we must validate the given property, it must match the given format
@@ -361,7 +361,7 @@ export function RangeDatePicker(props: RangeDatePickerProps) {
 			<div ref={ref} className={`${styles.rangeDatePickerLabel} ${isOpen && 'active'}`}>
 				<div className="date-container">
 					<i className="icon icon-calendar"/>
-					<span className={"value"}><RangeDateLabel startDate={props.value.startDate} endDate={props.value.endDate} /></span>
+					<span className={"value"}><IconCalendarEvent className="icon-calendar"/><RangeDateLabel startDate={props.value.startDate} endDate={props.value.endDate} /></span>
 					{
 						props.cancellable &&
 						( props.value.startDate || props.value.endDate ) &&
