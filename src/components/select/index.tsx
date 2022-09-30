@@ -8,6 +8,7 @@ import {
 } from "react-relay";
 import {createPopper, Instance} from "@popperjs/core";
 import "./select.scss";
+import DataLoader from "dataloader";
 
 const first = 20;
 
@@ -22,9 +23,7 @@ export type Props = {
 	error?: string
 	label?: string
 	cancellable?: boolean
-	loader: {
-		load: (id: number|string) => Promise<{label: string}|null>
-	}
+	loader?: DataLoader<any, any>
 	additionalVariables?: {}
 } & (
 	F<string>|F<number>
@@ -90,7 +89,12 @@ export function AsyncSelect(props: Props){
 	// to update this later when u usethis compo in other places
 	React.useEffect(() => {
 		if(props.value){
-			props.loader.load(props.value).then(setLoaded)
+			// w'll throw error here if not passed
+			if(props.loader){
+				props.loader.load(props.value).then(setLoaded)
+			} else {
+				throw new Error("missing loader");
+			}
 		} else if (loaded){
 			setLoaded(null);
 		}
