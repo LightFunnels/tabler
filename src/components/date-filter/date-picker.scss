@@ -1,0 +1,302 @@
+$white: #fff;
+$light-grey: #fafafa;
+$border-color-tr: #D3DAE4;
+$box-shadow-1: 0px 0px 15px rgba(32, 32, 35, 0.08);
+$box-shadow-2: 0px 2px 20px rgba(32, 32, 35, 0.13);
+$box-shadow-3: 0px 1px 4px rgb(9 39 83 / 12%);
+$accent-blue: #0085FF;
+$grey-35: #7B8DA3;
+$grey-27: #191E24;
+$grey-20: #ABB6C4;
+$grey-24: #191E24;
+$grey-19: #F8F8F8;
+$modal-border-radius: 6px;
+$grey-10: #D9DFE8;
+$grey-27: #191E24;
+$blue--13: #0061F4;
+$blue--12: #0084FF;
+$blue-3: #0075FF;
+$blue-9: $blue-3;
+$opacity-blue-1: rgba($blue-9, 0.1);
+$grey-28: #F8F8F9;
+$grey-1: #93A2B4;
+$blue-border-selected-step: $accent-blue;
+$dark-1: $grey-27;
+
+@mixin selectedDate{
+  background: $blue-border-selected-step;
+  color: $white !important;
+}
+
+.react-datepicker-popper{
+  border: 1px solid $border-color-tr;
+  box-shadow: $box-shadow-1;
+  background: $white;
+  margin: 10px 0;
+  z-index: 3;
+}
+
+.react-datepicker{
+  
+  $modal-border-radius: 6px;
+  
+  // .react-datepicker{
+  //   font-family: inherit;
+  // }
+
+  .react-datepicker__day-names{
+    margin: 18px 0 10px;
+    display: grid;
+    gap: 4px;
+    grid-template-columns: repeat(7, 1fr);
+    & > * {
+      color: $grey-35;
+      font: 500 unquote('14px/17px') inherit;
+    }
+  }
+
+  .react-datepicker__month{
+    margin: 0;
+    display: grid;
+    row-gap: 4px;
+    
+    // this min height is to be put in the funnel builder style file.
+    // min-height: 188px;
+    align-content: flex-start;
+    // grid-template-rows: repeat(5, 1fr);
+  }
+
+  .react-datepicker__week{
+    display: grid;
+    gap: 4px;
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .react-datepicker__current-month{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font: 500 unquote('16px/19px') inherit;
+    color: $dark-1;
+    height: 24px;
+    position: relative;
+    .navigationIcon{
+      position: absolute;
+      top: 0;
+      font-size: 24px;
+      color: $grey-20;
+      cursor: pointer;
+      &.disabled{
+        opacity: .4;
+        cursor: not-allowed !important;
+        pointer-events: none;
+      }
+      &.left{
+        left: 0;
+      }
+      &.right{
+        right: 0;
+      }
+    }
+  }
+
+  .react-datepicker__month-container{
+    padding: 10px;
+  }
+
+  .react-datepicker__day{
+    font: 400 unquote('14px/17px') inherit;
+    color: $grey-24;
+    height: 28px;
+    width: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    cursor: pointer;
+    &:not(.react-datepicker__day--outside-month):not(.edgeRange):not(.react-datepicker__day--in-selecting-range):hover{
+      background-color: $grey-19;
+    }
+  }
+
+  .react-datepicker__day--outside-month, .react-datepicker__day--disabled{
+    opacity: .4;
+    cursor: not-allowed !important;
+    pointer-events: none;
+  }
+}
+
+:local(.rangeDatePicker){
+  background: $white;
+  box-shadow: $box-shadow-2;
+  border-radius: $modal-border-radius;
+  display: flex;
+  flex-direction: column;
+  width: 654px;
+  max-width: 100%;
+  z-index: 5;
+  :local(.customDate){
+    position: relative;
+    width: 120px;
+    border-left: 1px solid $grey-10;
+    height: 100%;
+    padding: 8px 0;
+    .item{
+      padding: 9px 10px;
+      color: $grey-27;
+      font: 400 unquote("13px/16px") inherit;
+      margin-bottom: 4px;
+      cursor: pointer;
+      &.active, &:hover {
+        color: $blue--13;
+        background: rgba($blue--12, .1);
+      }
+    }
+  }
+  .content{
+    flex-grow: 1;
+  }
+  .body{
+    padding: 24px 18px 20px;
+    .formGrid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .react-datepicker__day--in-range:not(.react-datepicker__day--outside-month){
+      background: rgba($blue-9, .1);
+    }
+    .edgeRange{
+      &:not(.react-datepicker__day--outside-month){
+        @include selectedDate;
+      }
+    }
+    .react-datepicker__day--in-selecting-range{
+      background: $opacity-blue-1;
+    }
+  }
+  .aligner {
+    display: flex;
+  }
+  .footer{
+    padding: 18px;
+    background: $grey-28;
+    border-radius: 0px 0px 6px 6px;
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 10px;
+  }
+	@media (max-width: 964px) {
+		width: 280px;
+		.aligner {
+			flex-direction: column;
+			.content {
+				order: 2;
+				.body {
+					max-height: 300px;
+					overflow: auto;
+					scrollbar-color: rgba(0,0,0,.15);
+					scrollbar-width: thin;
+					.formGrid {
+						grid-template-columns: 1fr;
+					}
+				}
+			}
+		}
+		:local(.customDate){
+			order: 1;
+			width: 100%;
+			max-height: 156px;
+   	  overflow: auto;
+			scrollbar-color: rgba(0,0,0,.15);
+			scrollbar-width: thin;
+			border-left: 0;
+			border-bottom: 1px solid $grey-10;
+			&::after{
+				border-bottom: 1px solid black;
+				height: 1px;
+				// width: 100px;
+				// background-color: black;
+			}
+			// &::-webkit-scrollbar-track{
+			// 	margin: 5px 0;
+			// }
+			// &::-webkit-scrollbar {
+			// 	width: 4px;
+			// 	height: 4px;
+			// }
+			// &::-webkit-scrollbar-thumb{
+			// 	background-color: rgba(0,0,0,.15);    
+			// 	border-radius: 4px;       
+			// }
+		}
+	}
+	@media (max-width: 320px) {
+		width: 240px;
+		:local(.customDate){
+			max-height: 86px;
+		}
+		.aligner {
+			.content {
+				.body {
+					padding: 4px 4px;
+				}
+			}
+		}
+		.react-datepicker {
+			.react-datepicker__month-container{
+				padding: 6px;
+			}
+		}
+	}
+}
+
+.react-datepicker__close-icon{
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  &:before{
+    content: "X";
+  }
+}
+
+
+
+:local(.rangeDatePickerLabel){
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 6px;
+  height: 36px;
+  border: 1px solid $border-color-tr;
+  color: $grey-27;
+  font-size: 14px;
+  background-color: $white;
+  cursor: pointer;
+  box-shadow: $box-shadow-3;
+  transition: .1s;
+  &:hover{
+    background-color: $light-grey;
+  }
+  .date-container {
+  	width: 100%;
+    display: flex;
+    align-items: center;
+    .value{
+      display: flex;
+      align-items: center;
+    	flex-grow: 1;
+      gap: 0 5px;
+      .icon-calendar{
+        stroke-width: 1.5;
+        stroke:  $grey-27;
+      }
+    }
+  }
+}
+
+:local(.rangeDatePickerMenu){
+  z-index: 1;
+}
