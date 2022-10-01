@@ -63,7 +63,7 @@ function App(){
 			</div>
 			<div>
 				<Label children="Tooltip:"/>
-				{showTarget && (
+				{/* {showTarget && (
 					<StaticPopover
 						placement='bottom-start'
 						target={target as React.MutableRefObject<HTMLDivElement>}
@@ -85,7 +85,7 @@ function App(){
 					}}
 				>
 					Hover Me
-				</div>
+				</div> */}
 			</div>
 			<Label children="Dropdown:"/>
 			<Dropdown			
@@ -101,12 +101,10 @@ function App(){
 			<Label className="mt-2" children="Modal:"/>
 			{showModal && (
 				<Modal 
-					modalState={false}
 					setModalState={setShowModal}
 					body={
 						<div>
-							this is the body...
-						</div>
+							this is the body...</div>
 					} 
 					title="This is modal" 
 					footer={
@@ -117,6 +115,39 @@ function App(){
 					}
 				/>
 			)}
+			<Dropdown			
+				label='Drop' 
+				children={
+					<React.Fragment>
+						<div className="dropdown-item cursor-pointer"><i className="dropdown-item-icon ti ti-settings fs-2"/>Im a dropdown</div>
+						<div className="dropdown-item cursor-pointer">Im a dropdown</div>
+						<div className="dropdown-item cursor-pointer">Im a dropdown</div>
+					</React.Fragment>
+				} 
+			/>
+			{showTarget && (
+				<StaticPopover
+					placement='bottom-start'
+					target={target as React.MutableRefObject<HTMLDivElement>}
+					children={
+						<div>
+							Hello my name is ism
+						</div>
+					}
+				/>
+			)}
+			<div
+				ref={target}
+				style={{width: 100}}
+				onMouseOver={e => {
+					setTarget(true)
+				}}
+				onMouseLeave={() => {
+					setTarget(false);
+				}}
+			>
+				Hover Me
+			</div>
 			<Button 
 				onClick={() => setShowModal(true)} 
 				children='Open Modal' 
@@ -253,7 +284,8 @@ function App(){
 				loading
 			/>
 			<Label children="Inputs:" />
-			<Input 
+			<Input
+				error='this is invalid' 
 				className="mb-2" 
 				value={state} 
 				onChange={(e) => setState(e.target.value)} 
@@ -281,6 +313,7 @@ function App(){
 			/>
 			<Label children="Select:" />
 			<Select 
+				error='This is not good'
 				className="mb-3" 
 				options={
 					[

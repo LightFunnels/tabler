@@ -4,9 +4,10 @@ type Props = {
 	loading?: boolean
 	rightIcon?: React.ReactNode
 	leftIcon?: React.ReactNode
+	error?: string
 }
 
-export function Input({className, loading, type, rightIcon, leftIcon, ...props} : Props & React.InputHTMLAttributes<HTMLInputElement>){
+export function Input({className, loading, type, rightIcon, error, leftIcon, ...props} : Props & React.InputHTMLAttributes<HTMLInputElement>){
 	return (
 		<div className={`input-icon ${className ?? ""}`}>
 			{
@@ -26,7 +27,7 @@ export function Input({className, loading, type, rightIcon, leftIcon, ...props} 
 			{
 				<input 
 					{...props}
-					className={'form-control'}
+					className={`form-control ${error ? 'is-invalid' : ''}`}
 					type={type}
 				/>
 			}
@@ -36,6 +37,10 @@ export function Input({className, loading, type, rightIcon, leftIcon, ...props} 
 						{rightIcon}
 					</div>
 				)
+			}
+			{error ? (
+					<div className="invalid-feedback">{error}</div> 
+				) : null
 			}
 		</div>
 	)

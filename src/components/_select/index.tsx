@@ -5,14 +5,15 @@ export type Option = {label: React.ReactNode, value: string};
 type Props = {
 	options: readonly Option []
 	value: string | null
+	error?: string | undefined
 }
 
-export function Select({className, options, ...props}: Props & React.InputHTMLAttributes<HTMLSelectElement>){
+export function Select({className, options, error, ...props}: Props & React.InputHTMLAttributes<HTMLSelectElement>){
 	return (
 		<div className={className}>
 			<select 
 				{...props}
-				className="form-select"
+				className={`form-select ${error ? 'is-invalid' : ''}`}
 			>
 				{
 					options.map((item) => (
@@ -25,6 +26,11 @@ export function Select({className, options, ...props}: Props & React.InputHTMLAt
 					))
 				}
 			</select>
+			{
+				error ? ( 
+					<div className='invalid-feedback'>{error}</div> 
+				) : null
+			}
 		</div>
 	)
 }

@@ -12,6 +12,7 @@
 :local(.modal){
 	&:local(.modal){
 		// force classname
+		z-index: 1;
 		display: block;
 		// a scroll appears and push the modal to right
 		.modal-dialog {

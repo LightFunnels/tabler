@@ -168,9 +168,9 @@ export function AsyncSelect(props: Props){
 				}
 			</div>
 			{
-				props.error && (
+				props.error ? (
 					<div className="invalid-feedback">{props.error}</div>
-				)
+				) : null
 			}
 		</div>
 	)
