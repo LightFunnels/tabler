@@ -115,8 +115,8 @@ function App(){
 					}
 				/>
 			)}
-			<Dropdown			
-				label='Drop' 
+			<Dropdown
+				label='Drop'
 				children={
 					<React.Fragment>
 						<div className="dropdown-item cursor-pointer"><i className="dropdown-item-icon ti ti-settings fs-2"/>Im a dropdown</div>
