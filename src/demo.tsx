@@ -101,7 +101,7 @@ function App(){
 			<Label className="mt-2" children="Modal:"/>
 			{showModal && (
 				<Modal 
-					setModalState={setShowModal}
+					onClose={() => setShowModal(false)}
 					body={
 						<div>
 							this is the body...</div>
@@ -313,6 +313,7 @@ function App(){
 			/>
 			<Label children="Select:" />
 			<Select 
+				value={''}
 				error='This is not good'
 				className="mb-3" 
 				options={

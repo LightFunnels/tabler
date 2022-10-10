@@ -11,13 +11,6 @@ type Props = {
 
 export function Toast(props: Props) {
 
-	React.useEffect(() => {
-		if(props.dismiss){
-			const timer = setTimeout(props.dismiss, props.timeout ?? 3000);
-			return () => clearTimeout(timer);
-		}
-	}, []);
-
 	return (
 		createPortal(
 			<div
