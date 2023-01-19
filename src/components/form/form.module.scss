@@ -1,17 +1,17 @@
 
-:local(.hint){
+.hint{
 	margin-top: 10px;
 	font: 400 unquote("14px/1.5") sans-serif;
 	color: #596B80;
 }
 
-:local(.label) {
+.label {
   font: 400 14px/17px sans-serif;
   letter-spacing: 0.02em;
   color: #191E24;
   margin-bottom: 6px;
   display: block;
-  &.light {
+  &:global(.light) {
     font-weight: 400;
   }
 }

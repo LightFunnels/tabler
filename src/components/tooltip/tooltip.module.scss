@@ -1,11 +1,11 @@
-:local(.pop){
+.pop{
 	padding: 10px;
 	z-index: 2;
 	background: #fff;
 	box-shadow: 0px 2px 15px rgba(#191E24, 0.13);
 	border-radius: 4px;
 	color: #191E24;
-	.arr{
+	:global .arr{
 		&::before {
 			content: "";
 			position: absolute;
@@ -14,17 +14,17 @@
 			background: #fff;
 			transform: rotate(45deg);
 		}
-	}
-	&[data-popper-placement^="top"] > .arr {
-		bottom: 4px;
-	}
-	&[data-popper-placement^="bottom"] > .arr {
-		top: -4px;
-	}
-	&[data-popper-placement^="left"] > .arr {
-		right: 4px;
-	}
-	&[data-popper-placement^="right"] > .arr {
-		left: -4px;
+		&[data-popper-placement^="top"] > .arr {
+			bottom: 4px;
+		}
+		&[data-popper-placement^="bottom"] > .arr {
+			top: -4px;
+		}
+		&[data-popper-placement^="left"] > .arr {
+			right: 4px;
+		}
+		&[data-popper-placement^="right"] > .arr {
+			left: -4px;
+		}
 	}
 }
