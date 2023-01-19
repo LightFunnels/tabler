@@ -35,7 +35,7 @@ export function Toast(props: Props) {
 					)}
 				</div>
 			</div>,
-			document.getElementById("modals")
+			document.getElementById("modals")!
 		)
 	);
 
