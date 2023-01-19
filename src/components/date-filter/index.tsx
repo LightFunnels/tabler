@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import ReactDatePicker from "react-datepicker";
 import lodash from 'lodash';
 import dateformat from 'dateformat'
-import styles from "./date-picker.scss";
+import styles from "./date-picker.module.scss";
 import {createPortal} from "react-dom";
 import {
 	Select,

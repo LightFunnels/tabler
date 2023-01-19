@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './form.scss';
+import styles from './form.module.scss';
 import { createPopper, Instance, Placement } from '@popperjs/core';
 type Props = {
 	label?: React.ReactNode

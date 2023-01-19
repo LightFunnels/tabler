@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './toast.scss';
+import styles from './toast.module.scss';
 import {createPortal} from "react-dom";
 
 type Props = {

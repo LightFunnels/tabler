@@ -7,7 +7,7 @@ import {
 	GraphQLTaggedNode,
 } from "react-relay";
 import {createPopper, Instance} from "@popperjs/core";
-import "./select.scss";
+import "./select.module.scss";
 import DataLoader from "dataloader";
 
 const first = 20;

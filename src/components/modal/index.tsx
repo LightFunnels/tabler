@@ -1,6 +1,6 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import styles from './modal.scss';
+import styles from './modal.module.scss';
 
 type Props = {
 	title: string

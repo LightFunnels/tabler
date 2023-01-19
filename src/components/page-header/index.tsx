@@ -6,7 +6,7 @@ type Props = {
 	subHeader?: React.ReactNode 
 	breadcrumbs?: React.ReactNode
 }
-import styles from './page-header.scss';
+import styles from './page-header.module.scss';
 
 export function PageHeader(props : Props) {
   return (

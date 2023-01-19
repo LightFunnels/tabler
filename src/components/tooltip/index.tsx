@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import styles from './tooltip.scss';
+import styles from './tooltip.module.scss';
 import {createPopper, Placement} from "@popperjs/core";
 import {createPortal} from 'react-dom';
 

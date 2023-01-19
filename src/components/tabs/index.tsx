@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "./tabs.scss"
+import styles from "./tabs.module.scss"
 
 type Props = {
 	className?: string
