@@ -7,69 +7,11 @@ import {createPortal} from "react-dom";
 import {
 	Select,
 	Button,
-	// InputComponent,
 	useToggle,
 } from '..'
-// import {
-// 	ErrorView,
-// } from '../index'
+
 import {IconCalendarEvent} from "@tabler/icons";
 const frmt = 'yyyy-mm-dd HH:MM:ss';
-
-// we must validate the given property, it must match the given format
-// type Props = {
-// 	onChange: (a: string | null) => void
-// 	name?
-// 	value: string | null
-// 	error?: string
-// 	displayFormat?: string
-// 	popperPlacement?: string
-// 	isClearable?: boolean
-// 	maxDate?: Date
-// 	minDate?: Date
-// }
-// export function DatePickerComponent({ name, error, value, ...props }: Props) {
-// 	const selected = React.useMemo(() => (value ? new Date(SafeDate(value)) : null), [value]);
-// 	return (
-// 		<div className={styles.datePicker}>
-// 			<ReactDatePicker
-// 				{...props}
-// 				customInput={<DatePickerInput displayformat={props.displayFormat} onChange={lodash.noop} value={""} />}
-// 				selected={selected}
-// 				renderCustomHeader={
-// 					function (e) {
-// 						return (
-// 							<div className="react-datepicker__current-month" >
-// 								<i
-// 									className="navigationIcon left icon-arrow-left1"
-// 									onClick={e.decreaseMonth}
-// 								/>
-// 								<span className="label">
-// 									{dateformat(SafeDate(e.date), `mmmm yyyy`)}
-// 								</span>
-// 								<i
-// 									className="navigationIcon right icon-arrow-right1"
-// 									onClick={e.increaseMonth}
-// 								/>
-// 							</div>
-// 						)
-// 					}
-// 				}
-// 				onChange={
-// 					function (value) {
-// 						if (value) {
-// 							value.setHours(0, 0, 0, 0);
-// 							props.onChange(format(value));
-// 						} else {
-// 							props.onChange(null);
-// 						}
-// 					}
-// 				}
-// 			/>
-// 			<ErrorView error={error} />
-// 		</div>
-// 	);
-// }
 
 type RangeDatePickerComponentProps = {
 	value:{
@@ -565,32 +507,6 @@ export function formatRangeDate(startDate, endDate){
 		}
 	return comareFormat;
 }
-
-// const DatePickerInput = React.forwardRef<HTMLDivElement, { onChange, value: string | null, displayformat?: string }>(
-// 	function (props, ref) {
-// 		return (
-// 			<InputComponent
-// 				{...props}
-// 				className={styles.dateInput}
-// 				ref={ref}
-// 				value={
-// 					props.value ?
-// 						dateformat(SafeDate(props.value), props.displayformat) :
-// 						props.value
-// 				}
-// 				readOnly
-// 				type="text"
-// 				leftIcon={<i className="icon-calendar" />}
-// 			/>
-// 		)
-// 	}
-// );
-
-// DatePickerComponent.defaultProps = {
-// 	// valueFormat:'yyyy-mm-dd HH:MM:ss',
-// 	// valueFormat:'yyyy-mm-dd',
-// 	displayFormat: 'yyyy-mm-dd',
-// }
 
 RangeDatePickerComponent.defaultProps = {
 	// valueFormat:'yyyy-mm-dd HH:MM:ss',

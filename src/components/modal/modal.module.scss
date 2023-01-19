@@ -1,4 +1,4 @@
-:local(.overlay) {
+.overlay {
 	position: absolute;
 	background-color: #1e293b;
 	opacity: .24;
@@ -9,16 +9,18 @@
   cursor: pointer;
 }
 
-:local(.modal){
-	&:local(.modal){
+.modal{
+	&.modal{
 		// force classname
-		z-index: 1;
-		display: block;
-		// a scroll appears and push the modal to right
-		.modal-dialog {
-		// 	animation: .4s modalAnim;
-			.modal-content {
-				box-shadow: 0px 0px 20px rgb(0 0 0 / 13%);
+		:global{
+			z-index: 1;
+			display: block;
+			// a scroll appears and push the modal to right
+			.modal-dialog {
+			// 	animation: .4s modalAnim;
+				.modal-content {
+					box-shadow: 0px 0px 20px rgb(0 0 0 / 13%);
+				}
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-:local(.customToast) {
+.customToast {
   position: fixed; 
   left: 50%;
   bottom: 30px;
@@ -7,7 +7,7 @@
   border-radius: 4px;
 }
 
-:local(.showToast) {
+.showToast {
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 	@-webkit-keyframes fadein {
