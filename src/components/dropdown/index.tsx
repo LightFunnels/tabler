@@ -16,11 +16,13 @@ export function Dropdown(props: Props) {
 
 	React.useLayoutEffect(() => {
 		if (isOpen) {
-			function clickOut(event) {
-				setIsOpen(false);
-			}
+			// function clickOut(event) {
+			// 	setIsOpen(false);
+			// }
 			setTimeout(() => {
-				document.addEventListener("click", clickOut);
+				document.addEventListener("click", (event)=> {
+					setIsOpen(false);
+				});
 			});
 			const p = createPopper(
 				link.current!,
@@ -38,7 +40,9 @@ export function Dropdown(props: Props) {
 				}
 			);
 			return () => {
-				document.removeEventListener("click", clickOut);
+				document.removeEventListener("click", (event)=> {
+					setIsOpen(false);
+				});
 				p.destroy();
 			}
 		}
