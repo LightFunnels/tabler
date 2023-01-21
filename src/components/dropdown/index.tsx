@@ -15,10 +15,11 @@ export function Dropdown(props: Props) {
 	const link = React.useRef<HTMLAnchorElement>(null);
 
 	React.useLayoutEffect(() => {
+		function clickOut(event) {
+			setIsOpen(false);
+		}
 		if (isOpen) {
-			function clickOut(event) {
-				setIsOpen(false);
-			}
+		
 			setTimeout(() => {
 				document.addEventListener("click", clickOut);
 			});
