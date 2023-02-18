@@ -1,0 +1,34 @@
+
+
+.customModal-overlay {
+	display: none;
+	background: rgba(52, 64, 84, 0.5);
+	opacity: 0.6;
+	inset: 0;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	&.showOverlay {
+		display: block;
+	}
+}
+
+.customModal {
+	position: absolute;
+	visibility: hidden;
+	opacity: 0;
+	background: white;
+	border-radius: 12px;
+	width: 600px;
+	z-index: 10;
+	max-width: 100%;
+	transition: all 0.4s ease;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 24px;
+	&.showModal {
+		visibility: visible;
+		opacity: 1;
+	}
+}

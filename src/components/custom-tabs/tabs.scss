@@ -1,0 +1,49 @@
+
+:local(.tabs) {
+	display: flex;
+	position: relative;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	width: 100%;
+	border-bottom: 1px solid #d9dfe8;
+	margin-bottom: 30px;
+	white-space: nowrap;
+	overflow: auto;
+	.tab {
+		display: flex;
+		align-items: center;
+		font-weight: 500;
+		padding: 10px 14px 15px 14px;
+		position: relative;
+		color: #5D6B98;
+		line-height: 20px;
+		border-radius: 6px 6px 0px 0px;
+		cursor: pointer;
+		&:not(:last-child) {
+			margin-right: 10px;
+		}
+		.label {
+			max-width: max-content;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.line {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 3px;
+			background: #155EEF;
+			border-radius: 3px 3px 0 0;
+		}
+		.icon {
+			font-size: 22px;
+			margin-right: 8px;
+		}
+	}
+	.active {
+		color: #155EEF;
+		background: #D1E0FF;
+	}
+}	
