@@ -35,7 +35,7 @@ export function Stats(props: Props){
 									{
 										props.hasCompare && (
 											<Fragment>
-												<i className={`ti ${cond ? 'ti-arrow-curve-left' : 'ti-ArrowDownRight'}`}/>
+												<i className={`arrow-icon ${cond ? 'ti-arrow-curve-left icon-arrow-up2' : 'ti-ArrowDownRight icon-arrow-down2'}`}/>
 												{item.growth}%
 											</Fragment>
 										)
