@@ -8,7 +8,7 @@ type ModalProps = {
 	className?: string
 }
 
-import styles from './modal.scss';
+import styles from './modal.module.scss';
 
 export function CustomModal(props: ModalProps){
 	return (

@@ -24,7 +24,9 @@ import {
 	Modal,
 	StaticPopover,
 	Tabs,
-	AvatarList
+	AvatarList,
+	CustomTabs,
+	RangeDatePicker
 } from "./components";
 
 createRoot(window.app)
@@ -37,6 +39,8 @@ function App(){
 	const [toast, toggleToast] = React.useState(false);
 	const [showModal, setShowModal] = React.useState(false);
 	const [show, setShow] = React.useState<'home' | 'profile' | 'contact'>('home');
+	const [active, setActive] = React.useState("dashboard")
+
 
 	const target = React.useRef<HTMLDivElement>(null);
 	const [showTarget, setTarget] = React.useState<boolean>(false);
@@ -441,6 +445,30 @@ function App(){
 					/>
 				}
 			/>
+			<CustomTabs
+					active={active}
+					setActive={setActive} 
+					items={tabsItems}
+				/>
+				{
+					(active === 'dashboard') ? (
+						"This is an sample text"
+					) : active === 'cogs' ? (
+						"This is an sample text"
+					) : active === 'monthly-expenses' ? (
+						"This is an sample text"
+					) : (
+						"This is an sample text"
+					)
+		 		}
+			<RangeDatePicker value={{startDate: null, endDate: null}} onChange={() => {}}/>	
 		</div>
 	)
 }
+
+const tabsItems = [
+	{label: 'dashboard', title: 'Dashboard'}, 
+	{label: 'cogs', title: "Cogs"}, 
+	{label: 'monthly-expenses', title: 'Monthly expenses'},
+	{label: 'ad-platforms', title: "Ad platforms"},
+];

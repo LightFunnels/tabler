@@ -7,7 +7,7 @@ type TableProps = {
 	body: React.ReactNode
 }
 
-import styles from './table.scss';
+import styles from './table.module.scss';
 
 export function Table(props: TableProps){
 	return (

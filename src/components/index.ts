@@ -20,6 +20,10 @@ export { EmptyState } from "./empty-state";
 export { Modal } from "./modal";
 export { StaticPopover } from "./tooltip";
 export { Tabs } from "./tabs";
+export { CustomTabs } from "./custom-tabs";
+export { CustomModal } from "./custom-modal";
+export { Table } from "./table";
+export { Stats } from "./stats";
 export { AvatarList } from './avatar-list';
 export { useToggle } from "./form"
 export { RangeDatePickerComponent, RangeDatePicker, SafeDate } from './date-filter';

@@ -10,7 +10,7 @@ type Props = {
   hasCompare: boolean
 }
 
-import styles from './stats.scss';
+import styles from './stats.module.scss';
 
 export function Stats(props: Props){
   return (

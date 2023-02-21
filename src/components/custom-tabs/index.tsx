@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import styles from './tabs.scss';
+import styles from './tabs.module.scss';
 
 type Props = {
 	className?: string
@@ -14,7 +14,7 @@ type Props = {
 	setActive: (e: string) => void
 }
 
-export function Tabs(props: Props){
+export function CustomTabs(props: Props){
 	return (
 		<div className={`${styles.tabs} ${props.className ?? ''}`}>
 			{props.items.map(item => (
