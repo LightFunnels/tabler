@@ -3,7 +3,8 @@ import React, { Fragment } from 'react';
 type Props = {
   componentData: Array<{ 
     name: string, 
-    icon: string, 
+    icon?: string, 
+		image?: string,
     value: string|number,
     growth: number, 
   }>,
@@ -24,7 +25,11 @@ export function Stats(props: Props){
 							className={`stat-container`}
 						>
 							<div className={`stat-header`}>
-								<i className={`icon ti ${item.icon}`} />
+								{item.image ? (
+									<img className='image' src={item.image}/>
+								) : (
+									<i className={`icon ti ${item.icon}`} />
+								)}
 								<span className={`stat-title`}>{item.name}</span>
 							</div>
 							<div className='stat-body'>
