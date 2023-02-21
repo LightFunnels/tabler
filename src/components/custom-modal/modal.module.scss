@@ -1,6 +1,6 @@
 
 
-.customModal-overlay {
+.customModalOverlay {
 	display: none;
 	background: rgba(52, 64, 84, 0.5);
 	opacity: 0.6;
@@ -8,9 +8,10 @@
 	position: fixed;
 	width: 100%;
 	height: 100%;
-	&.showOverlay {
-		display: block;
-	}
+}
+
+.showOverlay {
+	display: block;
 }
 
 .customModal {
@@ -27,8 +28,8 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	padding: 24px;
-	&.showModal {
-		visibility: visible;
-		opacity: 1;
-	}
+}
+.showModal {
+	visibility: visible;
+	opacity: 1;
 }
