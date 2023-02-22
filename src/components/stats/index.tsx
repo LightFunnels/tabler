@@ -4,7 +4,7 @@ type Props = {
   componentData: Array<{ 
     name: string, 
     icon?: string, 
-		image?: string,
+		image?: React.ReactNode,
     value: string|number,
     growth: number, 
   }>,
@@ -25,11 +25,12 @@ export function Stats(props: Props){
 							className={`stat-container`}
 						>
 							<div className={`stat-header`}>
-								{item.image ? (
-									<img className='image' src={item.image}/>
-								) : (
-									<i className={`icon ti ${item.icon}`} />
-								)}
+								{item.image ? 
+									item.image
+									: (
+										<i className={`icon ti ${item.icon}`} />
+									)
+								}
 								<span className={`stat-title`}>{item.name}</span>
 							</div>
 							<div className='stat-body'>
