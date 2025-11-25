@@ -16,7 +16,6 @@
     "@bugsnag/js": "^7.16.2",
     "@popperjs/core": "^2.11.5",
     "@tabler/core": "^1.0.0-beta9",
-    "@types/react": "^18.0.9",
     "autoprefixer": "^10.4.4",
     "babel-loader": "^8.2.4",
     "copy-webpack-plugin": "^10.2.4",
@@ -42,7 +41,8 @@
     "webpack-dev-server": "^4.8.1"
   },
   "devDependencies": {
-    "@types/react-dom": "^18.0.4",
+    "@types/react": "^18.3.27",
+    "@types/react-dom": "^18.3.7",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
     "eslint": "^8.13.0",
